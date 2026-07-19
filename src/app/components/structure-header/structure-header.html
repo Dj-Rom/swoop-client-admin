@@ -1,0 +1,8 @@
+<div class="structure-header">
+  <h1 class="structure-header__title">{{ title }}</h1>
+
+  <div class="structure-header__actions">
+    <app-search-input placeholder="Search" (valueChange)="search.emit($event)" />
+    <button type="button" class="structure-header__add-btn" (click)="addNew.emit()">Add new</button>
+  </div>
+</div>

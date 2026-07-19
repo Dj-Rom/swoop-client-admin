@@ -1,0 +1,15 @@
+$color-black: rgba(0, 0, 0, 1);
+$color-neutral: rgba(162, 163, 168, 1);
+$color-tertiary: rgba(241, 241, 241, 1);
+$color-secondary: rgba(92, 97, 105, 1);
+$color-inverse: rgba(255, 255, 255, 1);
+
+$color-bg-active: rgba(0, 0, 0, 0.05);
+$color-bg-white: rgba(255, 255, 255, 0.8);
+$color-bg-head: rgba(252, 252, 252, 1);
+@mixin main-position {
+  position: absolute;
+  top: 0;
+  left: 270px;
+  width: calc(100% - 298px);
+}

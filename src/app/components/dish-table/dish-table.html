@@ -1,0 +1,22 @@
+<div class="dish-table">
+  <div class="dish-table__head">
+    <span class="dish-table__col dish-table__col--drag"></span>
+    <span class="dish-table__col dish-table__col--image"></span>
+    <span class="dish-table__col">Headline</span>
+    <span class="dish-table__col">Description</span>
+    <span class="dish-table__col">Price, zł</span>
+    <span class="dish-table__col">Diets</span>
+    <span class="dish-table__col">Allergens</span>
+    <a href="#" class="dish-table__stop-list"
+      >Stop List <img src="/assets/icons/StopListIcon.svg"
+    /></a>
+  </div>
+
+  <app-dish-table-group
+    *ngFor="let group of groups"
+    [groupTitle]="group.title"
+    [dishes]="group.dishes"
+    (stopListToggled)="stopListToggled.emit($event)"
+    (dishesReordered)="dishesReordered.emit({ groupId: group.id, dishes: $event })"
+  />
+</div>

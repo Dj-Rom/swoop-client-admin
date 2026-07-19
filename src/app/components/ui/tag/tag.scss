@@ -1,0 +1,28 @@
+@use '../../../styles/var' as *;
+:host {
+  display: inline-flex;
+}
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 32px;
+  height: 28px;
+  padding: 0 10px;
+  border: 1px solid $color-secondary;
+  border-radius: 999px;
+  font-size: 13px;
+  color: $color-secondary;
+  background: #fff;
+  font-family: Inter;
+  font-weight: 400;
+  font-style: Regular;
+  font-size: 14px;
+  leading-trim: NONE;
+  line-height: 20px;
+  letter-spacing: 0%;
+  &--disabled {
+    opacity: 0.5;
+  }
+}

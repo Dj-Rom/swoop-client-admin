@@ -1,0 +1,15 @@
+<div class="menu-tabs">
+  <button
+    *ngFor="let tab of tabs"
+    type="button"
+    class="menu-tabs__item"
+    [class.menu-tabs__item--active]="tab.id === activeTabId"
+    (click)="tabSelected.emit(tab.id)"
+  >
+    {{ tab.label }}
+  </button>
+
+  <button type="button" class="menu-tabs__add" (click)="addMenu.emit()">
+    <img src="/assets/icons/Plus.svg" class="menu-tabs__add-icon" /> Add Menu
+  </button>
+</div>

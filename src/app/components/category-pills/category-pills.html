@@ -1,0 +1,15 @@
+<div class="category-pills">
+  <button
+    *ngFor="let category of categories"
+    type="button"
+    class="category-pills__item"
+    [class.category-pills__item--active]="category.id === activeCategoryId"
+    (click)="categorySelected.emit(category.id)"
+  >
+    {{ category.label }}
+  </button>
+
+  <button type="button" class="category-pills__add" (click)="addCategory.emit()">
+    <img src="/assets/icons/Plus.svg" class="category-pills__add-icon" /> Add category
+  </button>
+</div>

@@ -1,0 +1,27 @@
+@use '../../../styles/var' as *;
+:host {
+  display: inline-flex;
+}
+
+.badge {
+  angle: 0 deg;
+  opacity: 1;
+  gap: 8px;
+  height: 20px;
+  padding-top: 2px;
+  padding-right: 8px;
+  padding-bottom: 2px;
+  padding-left: 8px;
+  display: inline-flex;
+  align-items: center;
+  font-family: Inter;
+  font-weight: 400;
+
+  font-style: Regular;
+  font-size: 12px;
+  leading-trim: NONE;
+  line-height: 16px;
+  letter-spacing: 0%;
+  background-color: $color-tertiary;
+  color: $color-secondary;
+}

@@ -1,0 +1,21 @@
+<div class="structure-page">
+  <app-structure-header (addNew)="onAddNew()" />
+
+  <app-menu-tabs
+    [tabs]="menuTabs"
+    [activeTabId]="activeTabId()"
+    (tabSelected)="onTabSelected($event)"
+  />
+
+  <app-category-pills
+    [categories]="categories"
+    [activeCategoryId]="activeCategoryId()"
+    (categorySelected)="onCategorySelected($event)"
+  />
+
+  <app-dish-table
+    [groups]="groups()"
+    (stopListToggled)="onStopListToggled($event)"
+    (dishesReordered)="onDishesReordered($event)"
+  />
+</div>

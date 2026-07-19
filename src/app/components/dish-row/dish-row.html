@@ -1,0 +1,28 @@
+<div class="dish-row" [class.dish-row--stopped]="dish.inStopList">
+  <span class="dish-row__drag" cdkDragHandle>⠿</span>
+
+  <img class="dish-row__image" [src]="dish.image" [alt]="dish.title" />
+
+  <div class="dish-row__title-cell">
+    <span class="dish-row__title">{{ dish.title }}</span>
+    <app-badge *ngIf="dish.badgeLabel" [label]="dish.badgeLabel" />
+  </div>
+
+  <div class="dish-row__description">{{ dish.description }}</div>
+
+  <div class="dish-row__price">{{ dish.price }}</div>
+
+  <div class="dish-row__diets">
+    <app-tag *ngFor="let diet of dish.diets" [label]="diet" [disabled]="dish.inStopList" />
+  </div>
+
+  <div class="dish-row__allergens">
+    <app-tag
+      *ngFor="let allergen of dish.allergens"
+      [label]="allergen"
+      [disabled]="dish.inStopList"
+    />
+  </div>
+
+  <app-toggle-switch [checked]="dish.inStopList" (checkedChange)="onToggle($event)" />
+</div>

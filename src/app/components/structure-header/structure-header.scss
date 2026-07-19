@@ -1,0 +1,56 @@
+@use '../../styles/var' as *;
+:host {
+  display: block;
+}
+
+.structure-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24px 0;
+}
+
+.structure-header__title {
+  font-family: Inter;
+  font-weight: 700;
+  font-style: Bold;
+  font-size: 32px;
+  leading-trim: NONE;
+  line-height: 40px;
+  letter-spacing: 0%;
+  color: $color-black;
+}
+
+.structure-header__actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.structure-header__add-btn {
+  width: 104px;
+  height: 40px;
+  angle: 0 deg;
+  opacity: 1;
+  gap: 10px;
+  padding-top: 8px;
+  padding-right: 12px;
+  padding-bottom: 8px;
+  padding-left: 12px;
+  background-color: $color-black;
+  font-family: Inter;
+  font-weight: 600;
+  font-style: Semi Bold;
+  font-size: 16px;
+  leading-trim: NONE;
+  line-height: 24px;
+  letter-spacing: 0px;
+  text-align: center;
+  vertical-align: middle;
+  color: $color-inverse;
+  cursor: pointer;
+
+  &:hover {
+    background: #333;
+  }
+}

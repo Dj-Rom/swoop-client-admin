@@ -1,0 +1,35 @@
+:host {
+  display: block;
+}
+
+.dish-table-group__title {
+  font-size: 17px;
+  font-weight: 700;
+  color: #111;
+  padding: 20px 12px 12px;
+  margin: 0;
+}
+
+.dish-table-group__item {
+  &.cdk-drag-preview {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+    border-radius: 8px;
+    background: #fff;
+  }
+
+  &.cdk-drag-animating {
+    transition: transform 200ms cubic-bezier(0, 0, 0.2, 1);
+  }
+}
+
+.dish-table-group__list.cdk-drop-list-dragging .dish-table-group__item:not(.cdk-drag-placeholder) {
+  transition: transform 200ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.dish-table-group__placeholder {
+  height: 88px;
+  background: #f5f5f5;
+  border: 1px dashed #ccc;
+  border-radius: 8px;
+  margin: 4px 12px;
+}

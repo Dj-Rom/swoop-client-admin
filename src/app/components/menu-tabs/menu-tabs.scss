@@ -1,0 +1,97 @@
+@use '../../styles/var' as *;
+:host {
+  display: block;
+}
+
+.menu-tabs {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  border-bottom: 1px solid $color-secondary;
+  padding-bottom: 12px;
+  padding-left: 12px;
+}
+
+.menu-tabs__item {
+  border: none;
+  height: 44px;
+  angle: 0 deg;
+  opacity: 1;
+  padding-top: 12px;
+  padding-right: 16px;
+  padding-bottom: 12px;
+  padding-left: 16px;
+  background: transparent;
+  font-size: 15px;
+  color: $color-secondary;
+  cursor: pointer;
+
+  margin-bottom: -13px;
+  border-bottom: 2px solid transparent;
+  color: $color-secondary;
+  font-family: Inter;
+  font-weight: 400;
+  font-style: Regular;
+  font-size: 16px;
+  leading-trim: NONE;
+  line-height: 24px;
+  letter-spacing: 0px;
+  vertical-align: middle;
+
+  &--active {
+    height: 44px;
+    angle: 0 deg;
+    opacity: 1;
+    padding-top: 12px;
+    padding-right: 16px;
+    padding-bottom: 12px;
+    padding-left: 16px;
+    font-family: Inter;
+    font-weight: 600;
+    font-style: Semi Bold;
+    font-size: 16px;
+    leading-trim: NONE;
+    line-height: 24px;
+    letter-spacing: 0px;
+    vertical-align: middle;
+    color: $color-black;
+    border-bottom-color: $color-black;
+  }
+}
+
+.menu-tabs__add {
+  border: none;
+  height: 44px;
+  angle: 0 deg;
+  opacity: 1;
+  padding-top: 12px;
+  padding-right: 16px;
+  padding-bottom: 12px;
+  padding-left: 16px;
+  background: transparent;
+  font-size: 15px;
+  color: $color-secondary;
+  cursor: pointer;
+  display: flex;
+  margin-bottom: -13px;
+  border-bottom: 2px solid transparent;
+  color: $color-secondary;
+  font-family: Inter;
+  font-weight: 600;
+  font-style: Semi Bold;
+  font-size: 16px;
+  leading-trim: NONE;
+  line-height: 24px;
+  letter-spacing: 0px;
+  vertical-align: middle;
+  align-items: center;
+  &:hover {
+    color: $color-black;
+  }
+}
+
+.menu-tabs__add-icon {
+  height: 16px;
+  width: 16px;
+  margin-right: 4px;
+}

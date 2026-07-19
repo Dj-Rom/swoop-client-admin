@@ -1,0 +1,60 @@
+@use '../../styles/var' as *;
+:host {
+  display: block;
+}
+
+.category-pills {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 8px;
+}
+
+.category-pills__item {
+  height: 36px;
+  padding: 0 18px;
+  border: 1px solid $color-secondary;
+  border-radius: 999px;
+  background: #fff;
+  color: $color-secondary;
+
+  font-family: Inter;
+  font-weight: 400;
+  font-style: Regular;
+  font-size: 14px;
+  leading-trim: NONE;
+  line-height: 20px;
+  letter-spacing: 0px;
+
+  cursor: pointer;
+
+  &:hover {
+    border-color: #bbb;
+  }
+
+  &--active {
+  }
+}
+
+.category-pills__add {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  height: 36px;
+  padding: 0 18px;
+  border: 1px dashed $color-secondary;
+  border-radius: 999px;
+  background: transparent;
+  color: $color-secondary;
+  font-family: Inter, sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  cursor: pointer;
+
+  &:hover {
+    border-color: $color-secondary;
+    color: #111;
+  }
+}

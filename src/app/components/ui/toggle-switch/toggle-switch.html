@@ -1,0 +1,10 @@
+<button
+  type="button"
+  class="toggle"
+  [class.toggle--on]="checked"
+  role="switch"
+  [attr.aria-checked]="checked"
+  (click)="toggle()"
+>
+  <span class="toggle__thumb"></span>
+</button>

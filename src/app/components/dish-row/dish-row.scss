@@ -1,0 +1,95 @@
+@use '../../styles/var' as *;
+:host {
+  display: block;
+}
+
+.dish-row {
+  display: grid;
+  grid-template-columns: 24px 64px 1fr 1fr 90px 140px 140px 44px;
+  align-items: center;
+  gap: 16px;
+  height: 96px;
+  padding: 16px 12px;
+  border-bottom: 1px solid $color-secondary;
+  background: #fff;
+
+  &--stopped {
+    .dish-row__title,
+    .dish-row__description,
+    .dish-row__price {
+      opacity: 0.5;
+    }
+    .dish-row__title {
+      text-decoration: line-through;
+    }
+
+    .dish-row__image {
+      opacity: 0.5;
+    }
+  }
+}
+
+.dish-row__drag {
+  color: #ccc;
+  cursor: grab;
+  text-align: center;
+
+  &:active {
+    cursor: grabbing;
+  }
+}
+
+.dish-row__image {
+  width: 64px;
+  height: 64px;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.dish-row__title-cell {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.dish-row__title {
+  font-family: Inter;
+  font-weight: 500;
+  font-style: Medium;
+  font-size: 14px;
+  leading-trim: NONE;
+  line-height: 20px;
+  letter-spacing: 0px;
+  vertical-align: middle;
+  color: $color-black;
+}
+
+.dish-row__description {
+  font-family: Inter;
+  font-weight: 400;
+  font-style: Regular;
+  font-size: 14px;
+  leading-trim: NONE;
+  line-height: 20px;
+  letter-spacing: 0px;
+  color: $color-secondary;
+}
+
+.dish-row__price {
+  font-family: Inter;
+  font-weight: 500;
+  font-style: Medium;
+  font-size: 14px;
+  leading-trim: NONE;
+  line-height: 20px;
+  letter-spacing: 0px;
+  text-align: center;
+  vertical-align: middle;
+  color: $color-black;
+}
+
+.dish-row__diets,
+.dish-row__allergens {
+  display: flex;
+  gap: 6px;
+}

@@ -1,0 +1,11 @@
+<div class="dish-table-group">
+  <h3 class="dish-table-group__title">{{ groupTitle }}</h3>
+
+  <div class="dish-table-group__list" cdkDropList (cdkDropListDropped)="onDrop($event)">
+    <div class="dish-table-group__item" *ngFor="let dish of dishes" cdkDrag [cdkDragData]="dish">
+      <div class="dish-table-group__placeholder" *cdkDragPlaceholder></div>
+
+      <app-dish-row [dish]="dish" (stopListToggled)="onToggle(dish.id, $event)" />
+    </div>
+  </div>
+</div>
