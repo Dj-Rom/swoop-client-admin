@@ -1,0 +1,1 @@
+import{Fa as o,Ta as i,Ua as n,cb as a}from"./chunk-DHSIBCHT.js";var p=class t{static \u0275fac=function(e){return new(e||t)};static \u0275cmp=o({type:t,selectors:[["app-profile"]],decls:2,vars:0,template:function(e,s){e&1&&(i(0,"p"),a(1,"profile works!"),n())},encapsulation:2})};export{p as Profile};

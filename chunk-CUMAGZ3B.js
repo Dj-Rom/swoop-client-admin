@@ -1,0 +1,1 @@
+import{Fa as t,Ta as s,Ua as a,cb as l}from"./chunk-DHSIBCHT.js";var i=class n{static \u0275fac=function(e){return new(e||n)};static \u0275cmp=t({type:n,selectors:[["app-diets-and-allergens"]],decls:2,vars:0,template:function(e,r){e&1&&(s(0,"p"),l(1,"diets-and-allergens works!"),a())},encapsulation:2})};export{i as DietsAndAllergens};
