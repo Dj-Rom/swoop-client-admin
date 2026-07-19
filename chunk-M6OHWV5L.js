@@ -1,0 +1,1 @@
+import{$a as i,Fa as s,Ta as o,Ua as n}from"./chunk-CEHEQKGO.js";var p=class e{static \u0275fac=function(t){return new(t||e)};static \u0275cmp=s({type:e,selectors:[["app-stop-list"]],decls:2,vars:0,template:function(t,m){t&1&&(o(0,"p"),i(1,"stop-list works!"),n())},encapsulation:2})};export{p as StopList};
