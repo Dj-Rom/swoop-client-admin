@@ -5,12 +5,12 @@
 
 .dish-row {
   display: grid;
-  grid-template-columns: 24px 64px 1fr 1fr 90px 140px 140px 44px;
+  grid-template-columns: 40px 64px 1fr 1fr 104px 122px 122px 83px;
   align-items: center;
   gap: 16px;
   height: 96px;
   padding: 16px 12px;
-  border-bottom: 1px solid $color-secondary;
+  border-bottom: 1px solid $color-border-secondary;
   background: #fff;
 
   &--stopped {
@@ -72,7 +72,7 @@
   leading-trim: NONE;
   line-height: 20px;
   letter-spacing: 0px;
-  color: $color-secondary;
+  color: $color-text-secondary;
 }
 
 .dish-row__price {
@@ -83,7 +83,7 @@
   leading-trim: NONE;
   line-height: 20px;
   letter-spacing: 0px;
-  text-align: center;
+  text-align: start;
   vertical-align: middle;
   color: $color-black;
 }

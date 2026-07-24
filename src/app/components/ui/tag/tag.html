@@ -1,1 +1,8 @@
-<span class="tag" [class.tag--disabled]="disabled">{{ label }}</span>
+<span
+  [class]="isSelected ? 'active' : 'tag'"
+  [class.tag--disabled]="disabled"
+  [style.height]="tag36 ? '36px' : '28px'"
+  (click)="(onClick)"
+>
+  {{ label }}
+</span>

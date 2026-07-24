@@ -9,7 +9,21 @@
     {{ category.label }}
   </button>
 
-  <button type="button" class="category-pills__add" (click)="addCategory.emit()">
-    <img src="/assets/icons/Plus.svg" class="category-pills__add-icon" /> Add category
+  <button
+    type="button"
+    class="category-pills__add"
+    (click)="onAddNewCategory()"
+    *ngIf="!isAddCategory()"
+  >
+    <img src="assets/icons/Plus.svg" class="category-pills__add-icon" /> Add category
   </button>
+  <input
+    (keydown)="onSaveNewCategory($event)"
+    type="text"
+    #categoryInput
+    id="category_add_input"
+    class="category-pills__add"
+    (blur)="isAddCategory.set(false)"
+    *ngIf="isAddCategory()"
+  />
 </div>

@@ -1,0 +1,12 @@
+<h4>{{ title }}</h4>
+
+<div class="tags">
+  <app-tag
+    *ngFor="let item of items"
+    [label]="item.label"
+    [isSelected]="item.isSelected"
+    (selectedChange)="toggle(item)"
+    [tag36]="tag36"
+  >
+  </app-tag>
+</div>

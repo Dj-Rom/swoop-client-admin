@@ -1,0 +1,147 @@
+@use '../../styles/var' as *;
+:host {
+  margin-top: 32px;
+  display: block;
+}
+label {
+  max-width: 517px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 8px;
+  margin-top: 32px;
+  font-family: Inter;
+  font-weight: 400;
+  font-style: Regular;
+  font-size: 16px;
+  leading-trim: NONE;
+  line-height: 24px;
+  letter-spacing: 0%;
+  color: $color-black;
+  input {
+    height: 40px;
+  }
+  input,
+  textarea {
+    width: 100%;
+    max-width: 517px;
+    background-color: $color-tertiary;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    padding: 12px 16px;
+    font-size: 0.95rem;
+    font-family: inherit;
+    color: #1a1a1a;
+    box-sizing: border-box;
+    outline: none;
+    transition:
+      background-color 0.2s ease,
+      border-color 0.2s ease;
+
+    &::placeholder {
+      font-family: Inter;
+      font-weight: 400;
+      font-style: Regular;
+      font-size: 14px;
+      leading-trim: NONE;
+      line-height: 20px;
+      letter-spacing: 0px;
+      color: $color-text-secondary;
+    }
+
+    &:focus {
+      background-color: #e8e8e8;
+      border-color: #d1d1d6;
+    }
+  }
+
+  textarea {
+    min-height: 110px;
+    resize: vertical;
+  }
+}
+
+// Special wrapper behavior for Price (adds the trailing '€' unit)
+label:has(input[type='number']) {
+  position: relative;
+
+  input[type='number'] {
+    padding-right: 32px;
+    // Hide native number input arrows for a cleaner look
+    appearance: textfield;
+    -moz-appearance: textfield;
+
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+  }
+
+  // Appends € inside the right side of the input field
+  &::after {
+    content: '€';
+    position: absolute;
+    right: 16px;
+    bottom: 8px;
+    color: #1a1a1a;
+    font-weight: 500;
+    pointer-events: none;
+  }
+}
+
+// Tag Selector Styles (Add these styles directly or inside app-tag-selector scope)
+app-tag-selector {
+  display: block;
+  margin-bottom: 24px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+
+  // Title heading above the tags
+  h3,
+  .title,
+  label {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin-bottom: 12px;
+  }
+
+  // Tag list container
+  .tags-container,
+  .items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  // Individual pill tags
+
+  .tag,
+  .chip,
+  button {
+    display: inline-flex;
+    align-items: center;
+    padding: 8px 16px;
+    border-radius: 20px; // Rounded pill shape
+    border: 1px solid #d1d1d6;
+    background-color: #ffffff;
+    color: #666666;
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    user-select: none;
+    transition: all 0.2s ease;
+
+    &:hover {
+      border-color: #a1a1a6;
+      color: #1a1a1a;
+    }
+
+    &.selected,
+    &.active {
+      background-color: #1a1a1a;
+      border-color: #fb0707;
+      color: #ffffff;
+    }
+  }
+}

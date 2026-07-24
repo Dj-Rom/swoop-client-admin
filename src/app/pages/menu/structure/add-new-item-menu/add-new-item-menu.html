@@ -1,0 +1,28 @@
+<div class="page">
+  <section class="editor">
+    <app-breadcrumbs />
+    <h1>Add new</h1>
+    <label>Media</label>
+    <app-image-upload (changed)="updateItem({ image: $event })"></app-image-upload>
+
+    <app-item-form
+      [item]="item"
+      [diets]="diets()"
+      [allergens]="allergens()"
+      (itemChange)="updateItem($event)"
+    >
+    </app-item-form>
+
+    <div class="actions">
+      <button class="cancel">Cancel</button>
+
+      <button class="save" (click)="save()">Save Dish</button>
+    </div>
+  </section>
+
+  <section class="preview-area">
+    <h3>Preview</h3>
+
+    <app-item-preview [item]="item"> </app-item-preview>
+  </section>
+</div>

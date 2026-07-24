@@ -1,0 +1,118 @@
+@use '../../../../styles/var' as *;
+:host {
+  width: calc(100% - 278px);
+}
+h1 {
+  font-family: Inter;
+  font-weight: 700;
+  font-style: Bold;
+  font-size: 32px;
+  leading-trim: NONE;
+  line-height: 40px;
+  letter-spacing: 0%;
+  color: $color-black;
+  margin-top: 20px;
+}
+label {
+  display: inline-block;
+  font-family: Inter;
+  font-weight: 400;
+  font-style: Regular;
+  font-size: 16px;
+  leading-trim: NONE;
+  line-height: 24px;
+  letter-spacing: 0%;
+  color: $color-black;
+  margin-top: 32px;
+  margin-bottom: 8px;
+}
+.page {
+  display: grid;
+  grid-template-columns: 1fr 517px;
+  gap: 60px;
+  padding: 16px;
+}
+
+.editor {
+  background: white;
+}
+
+.preview-area {
+  margin: 0 20px 0 0;
+  background: rgba(241, 241, 241, 1);
+  width: 517px;
+  height: 800px;
+  angle: 0 deg;
+  display: flex;
+  opacity: 1;
+  flex-direction: column;
+  align-items: center;
+  h3 {
+    font-family: Inter;
+    font-weight: 700;
+    font-style: Bold;
+    font-size: 20px;
+    leading-trim: NONE;
+    line-height: 28px;
+    letter-spacing: 0%;
+    color: $color-black;
+    margin-bottom: 32px;
+    margin-top: 16px;
+    text-align: center;
+  }
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  max-width: 517px;
+}
+
+.save {
+  border: 0;
+  width: 108px;
+  height: 40px;
+  padding-top: 8px;
+  padding-right: 12px;
+  padding-bottom: 8px;
+  padding-left: 12px;
+  gap: 10px;
+  angle: 0 deg;
+  opacity: 1;
+  font-family: Inter;
+  font-weight: 600;
+  font-style: Semi Bold;
+  font-size: 16px;
+  leading-trim: NONE;
+  line-height: 24px;
+  letter-spacing: 0px;
+  text-align: center;
+  vertical-align: middle;
+  background-color: $color-black;
+  color: $color-inverse;
+}
+
+.cancel {
+  border: 0;
+  width: 108px;
+  height: 40px;
+  padding-top: 8px;
+  padding-right: 12px;
+  padding-bottom: 8px;
+  padding-left: 12px;
+  gap: 10px;
+  angle: 0 deg;
+  opacity: 1;
+  font-family: Inter;
+  font-weight: 600;
+  font-style: Semi Bold;
+  font-size: 16px;
+  leading-trim: NONE;
+  line-height: 24px;
+  letter-spacing: 0px;
+  text-align: center;
+  vertical-align: middle;
+  background: $color-tertiary;
+  color: $color-black;
+}

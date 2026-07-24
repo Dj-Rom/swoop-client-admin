@@ -9,7 +9,16 @@
     {{ tab.label }}
   </button>
 
-  <button type="button" class="menu-tabs__add" (click)="addMenu.emit()">
-    <img src="/assets/icons/Plus.svg" class="menu-tabs__add-icon" /> Add Menu
+  <button type="button" class="menu-tabs__add" *ngIf="!isAddTab()" (click)="onAddNewTab()">
+    <img src="assets/icons/Plus.svg" class="menu-tabs__add-icon" /> Add Menu
   </button>
+  <input
+    type="text"
+    #tabInput
+    class="menu-tabs__add"
+    style="border: none; outline: none"
+    *ngIf="isAddTab()"
+    (blur)="isAddTab.set(false)"
+    (keydown)="onSaveNewTab($event)"
+  />
 </div>

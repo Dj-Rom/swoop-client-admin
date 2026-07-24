@@ -1,0 +1,24 @@
+@use '../../styles/var' as *;
+a {
+  font-family: Inter;
+  font-weight: 400;
+  font-style: Regular;
+  font-size: 14px;
+  leading-trim: NONE;
+  line-height: 20px;
+  letter-spacing: 0%;
+  text-decoration: none;
+  color: $color-neutral;
+  cursor: pointer;
+
+  &.active {
+    font-family: Inter;
+    font-weight: 600;
+    font-style: Semi Bold;
+    font-size: 14px;
+    leading-trim: NONE;
+    line-height: 20px;
+    letter-spacing: 0%;
+    color: $color-black;
+  }
+}

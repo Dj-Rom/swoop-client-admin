@@ -9,6 +9,13 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/menu/structure/structure').then((m) => m.Structure),
   },
   {
+    path: 'menu/structure/add-new',
+    loadComponent: () =>
+      import('./pages/menu/structure/add-new-item-menu/add-new-item-menu').then(
+        (m) => m.AddNewItemMenu,
+      ),
+  },
+  {
     path: 'menu/stop-list',
     loadComponent: () => import('./pages/menu/stop-list/stop-list').then((m) => m.StopList),
   },

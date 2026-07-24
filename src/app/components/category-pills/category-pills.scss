@@ -14,11 +14,10 @@
 .category-pills__item {
   height: 36px;
   padding: 0 18px;
-  border: 1px solid $color-secondary;
+  border: 1px solid $color-border-secondary;
   border-radius: 999px;
-  background: #fff;
-  color: $color-secondary;
-
+  color: $color-text-secondary;
+  background: rgba(255, 255, 255, 1);
   font-family: Inter;
   font-weight: 400;
   font-style: Regular;
@@ -30,7 +29,7 @@
   cursor: pointer;
 
   &:hover {
-    border-color: #bbb;
+    border-color: #0c0000;
   }
 
   &--active {
@@ -41,12 +40,13 @@
   display: flex;
   align-items: center;
   gap: 4px;
+  min-width: 146px;
   height: 36px;
   padding: 0 18px;
-  border: 1px dashed $color-secondary;
+  border: 1px dashed $color-border-secondary;
   border-radius: 999px;
   background: transparent;
-  color: $color-secondary;
+  color: $color-text-secondary;
   font-family: Inter, sans-serif;
   font-weight: 400;
   font-size: 14px;
@@ -54,7 +54,7 @@
   cursor: pointer;
 
   &:hover {
-    border-color: $color-secondary;
+    border-color: $color-border-secondary;
     color: #111;
   }
 }

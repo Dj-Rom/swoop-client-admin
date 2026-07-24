@@ -1,0 +1,41 @@
+<label>
+  Dish name
+  <input
+    [value]="item.name"
+    (input)="change('name', $event.target.value)"
+    placeholder="Enter dish name"
+  />
+</label>
+
+<label>
+  Description
+
+  <textarea
+    (input)="change('description', $any($event.target).value)"
+    placeholder="Enter description"
+  ></textarea>
+</label>
+
+<label>
+  Price
+
+  <input type="number" (input)="change('price', $event.target.value)" placeholder="00,00" />
+</label>
+
+<app-tag-selector
+  title="Diets"
+  [items]="diets"
+  [selected]="item.diets"
+  [tag36]="true"
+  (selectedChange)="updateItem({ diets: $event })"
+>
+</app-tag-selector>
+
+<app-tag-selector
+  title="Allergens"
+  [items]="allergens"
+  [selected]="item.allergens"
+  [tag36]="true"
+  (selectedChange)="updateItem({ allergens: $event })"
+>
+</app-tag-selector>

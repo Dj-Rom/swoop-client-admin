@@ -1,9 +1,9 @@
-import { Component, signal } from '@angular/core';
+import { Component, signal, inject } from '@angular/core';
 import { StructureHeader } from '../../../components/structure-header/structure-header';
 import { MenuTabs, MenuTab } from '../../../components/menu-tabs/menu-tabs';
 import { CategoryPills, Category } from '../../../components/category-pills/category-pills';
 import { DishTable, DishGroup } from '../../../components/dish-table/dish-table';
-
+import { MenuService } from '../../../services/api/menu';
 @Component({
   selector: 'app-structure',
   standalone: true,
@@ -12,21 +12,11 @@ import { DishTable, DishGroup } from '../../../components/dish-table/dish-table'
   styleUrl: './structure.scss',
 })
 export class Structure {
-  menuTabs: MenuTab[] = [
-    { id: 'seasonal', label: 'Seasonal menu' },
-    { id: 'main', label: 'Main menu' },
-    { id: 'drinks', label: 'Drinks' },
-    { id: 'deserts', label: 'Deserts' },
-  ];
-  activeTabId = signal('seasonal');
+  private menuService = inject(MenuService);
 
-  categories: Category[] = [
-    { id: 'starters', label: 'Starters' },
-    { id: 'soups', label: 'Soups' },
-    { id: 'salads', label: 'Salads' },
-    { id: 'side-dishes', label: 'Side dishes' },
-    { id: 'main-dishes', label: 'Main dishes' },
-  ];
+  menuTabs = this.menuService.menuTabs;
+  categories = this.menuService.categories;
+  activeTabId = signal('seasonal');
   activeCategoryId = signal('starters');
 
   groups = signal<DishGroup[]>([

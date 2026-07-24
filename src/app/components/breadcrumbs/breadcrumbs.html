@@ -1,0 +1,9 @@
+<a
+  *ngFor="let item of breadcrumbs; let last = last"
+  [routerLink]="last ? null : item.url"
+  [class.active]="last"
+>
+  {{ item.label }}
+
+  <span *ngIf="!last"> / </span>
+</a>

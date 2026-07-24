@@ -2,13 +2,13 @@
   <app-structure-header (addNew)="onAddNew()" />
 
   <app-menu-tabs
-    [tabs]="menuTabs"
+    [tabs]="menuTabs()"
     [activeTabId]="activeTabId()"
     (tabSelected)="onTabSelected($event)"
   />
 
   <app-category-pills
-    [categories]="categories"
+    [categories]="categories()"
     [activeCategoryId]="activeCategoryId()"
     (categorySelected)="onCategorySelected($event)"
   />

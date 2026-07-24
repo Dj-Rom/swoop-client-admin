@@ -1,13 +1,19 @@
+@use '../../styles/var' as *;
 :host {
   display: block;
 }
 
 .dish-table-group__title {
-  font-size: 17px;
-  font-weight: 700;
-  color: #111;
-  padding: 20px 12px 12px;
+  padding: 16px 0 8px 67px;
   margin: 0;
+  font-family: Inter;
+  font-weight: 600;
+  font-style: Semi Bold;
+  font-size: 20px;
+  leading-trim: NONE;
+  line-height: 28px;
+  letter-spacing: 0%;
+  color: $color-black;
 }
 
 .dish-table-group__item {
