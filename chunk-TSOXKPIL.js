@@ -1,0 +1,1 @@
+import{Ga as o,Ua as a,Va as n,fb as s}from"./chunk-OCYUQJWF.js";var i=class t{static \u0275fac=function(e){return new(e||t)};static \u0275cmp=o({type:t,selectors:[["app-today"]],decls:2,vars:0,template:function(e,p){e&1&&(a(0,"p"),s(1,"today works!"),n())},encapsulation:2})};export{i as Today};
