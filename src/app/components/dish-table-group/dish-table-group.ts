@@ -1,12 +1,18 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { CdkDropList, CdkDrag, CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import {
+  CdkDropList,
+  CdkDrag,
+  CdkDragDrop,
+  moveItemInArray,
+  CdkDragPlaceholder,
+} from '@angular/cdk/drag-drop';
 import { DishRow, Dish } from '../dish-row/dish-row';
 
 @Component({
   selector: 'app-dish-table-group',
   standalone: true,
-  imports: [CommonModule, CdkDropList, CdkDrag, DishRow],
+  imports: [CommonModule, CdkDropList, CdkDrag, DishRow, CdkDragPlaceholder],
   templateUrl: './dish-table-group.html',
   styleUrl: './dish-table-group.scss',
 })

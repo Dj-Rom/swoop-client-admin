@@ -1,9 +1,13 @@
 export interface MenuItem {
-  id?: string;
+  id: string;
+  image?: string;
   name: string;
+  category?: string;
   description: string;
   price: number;
   diets: string[];
   allergens: string[];
-  image?: string; // Add this line (or string[] if you support multiple)
+  dateAdded: string;
+  stopListDateAdded?: string;
+  stopList: boolean;
 }

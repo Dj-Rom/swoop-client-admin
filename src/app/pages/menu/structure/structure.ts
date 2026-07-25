@@ -1,9 +1,12 @@
-import { Component, signal, inject } from '@angular/core';
+import { Component, signal, inject, computed } from '@angular/core';
+
 import { StructureHeader } from '../../../components/structure-header/structure-header';
-import { MenuTabs, MenuTab } from '../../../components/menu-tabs/menu-tabs';
-import { CategoryPills, Category } from '../../../components/category-pills/category-pills';
+import { MenuTabs } from '../../../components/menu-tabs/menu-tabs';
+import { CategoryPills } from '../../../components/category-pills/category-pills';
 import { DishTable, DishGroup } from '../../../components/dish-table/dish-table';
+
 import { MenuService } from '../../../services/api/menu';
+
 @Component({
   selector: 'app-structure',
   standalone: true,
@@ -14,62 +17,60 @@ import { MenuService } from '../../../services/api/menu';
 export class Structure {
   private menuService = inject(MenuService);
 
-  menuTabs = this.menuService.menuTabs;
+  menuTabs = this.menuService.menus;
   categories = this.menuService.categories;
+  menuItems = this.menuService.menuItems;
+
   activeTabId = signal('seasonal');
   activeCategoryId = signal('starters');
 
-  groups = signal<DishGroup[]>([
-    {
-      id: 'starters',
-      title: 'Starters',
-      dishes: [
-        {
-          id: '1',
-          image: 'https://placehold.co/64x64',
-          title: 'Title',
-          badgeLabel: 'Popular',
-          description: 'Description',
-          price: '00,00',
-          diets: ['Ve', 'Ve'],
-          allergens: ['Al', 'Eg'],
-          inStopList: false,
-        },
-        {
-          id: '2',
-          image: 'https://placehold.co/64x64',
-          title: 'Title',
-          description: 'Description',
-          price: '00,00',
-          diets: ['Ve', 'Ve'],
-          allergens: ['Al', 'Eg'],
-          inStopList: false,
-        },
-        {
-          id: '3',
-          image: 'https://placehold.co/64x64',
-          title: 'Title',
-          badgeLabel: 'New',
-          description: 'Description',
-          price: '00,00',
-          diets: ['Ve', 'Ve'],
-          allergens: ['Al', 'Eg'],
-          inStopList: false,
-        },
-        {
-          id: '4',
-          image: 'https://placehold.co/64x64',
-          title: 'Title',
-          badgeLabel: 'Popular',
-          description: 'Description',
-          price: '00,00',
-          diets: ['Ve', 'Ve'],
-          allergens: ['Al', 'Eg'],
-          inStopList: true,
-        },
-      ],
-    },
-  ]);
+  // преобразуем MenuItem -> DishTable формат
+  groups = computed<DishGroup[]>(() => {
+    const items = this.menuItems()
+      .filter((item) => item.menuId === this.activeTabId())
+      .filter((item) => !this.activeCategoryId() || item.category === this.activeCategoryId());
+
+    const grouped = items.reduce(
+      (acc, item) => {
+        const category = item.category || 'other';
+
+        if (!acc[category]) {
+          acc[category] = [];
+        }
+
+        acc[category].push({
+          id: item.id,
+
+          image: item.image ?? 'https://placehold.co/64x64',
+
+          title: item.name,
+
+          description: item.description,
+
+          price: item.price.toFixed(2),
+
+          diets: item.diets.map((diet) => diet.substring(0, 2)),
+
+          allergens: item.allergens.map((allergen) => allergen.substring(0, 2)),
+
+          inStopList: item.stopList,
+
+          badgeLabel: this.getBadge(item),
+        });
+
+        return acc;
+      },
+      {} as Record<string, DishGroup['dishes']>,
+    );
+
+    return Object.entries(grouped).map(([category, dishes]) => ({
+      id: category,
+
+      title: this.getCategoryName(category),
+
+      dishes,
+    }));
+  });
 
   onTabSelected(tabId: string): void {
     this.activeTabId.set(tabId);
@@ -80,27 +81,45 @@ export class Structure {
   }
 
   onAddNew(): void {
-    // TODO: open "add new dish" dialog
+    // open create dish dialog
   }
 
   onStopListToggled(event: { dishId: string; checked: boolean }): void {
-    this.groups.update((groups) =>
-      groups.map((group) => ({
-        ...group,
-        dishes: group.dishes.map((dish) =>
-          dish.id === event.dishId ? { ...dish, inStopList: event.checked } : dish,
-        ),
-      })),
-    );
+    const item = this.menuItems().find((dish) => dish.id === event.dishId);
+
+    if (!item) return;
+
+    event.checked
+      ? this.menuService.addToStopList(item.id)
+      : this.menuService.removeFromStopList(item.id);
   }
 
   onDishesReordered(event: { groupId: string; dishes: DishGroup['dishes'] }): void {
-    this.groups.update((groups) =>
-      groups.map((group) =>
-        group.id === event.groupId ? { ...group, dishes: event.dishes } : group,
-      ),
-    );
-    // TODO: persist new order to backend, e.g.:
-    // this.menuService.reorderDishes(event.groupId, event.dishes.map(d => d.id));
+    console.log('new order', event);
+
+    // позже:
+    // menuService.saveOrder(...)
+  }
+
+  private getBadge(item: any): string | undefined {
+    const added = new Date(item.dateAdded);
+
+    const now = new Date();
+
+    const diff = (now.getTime() - added.getTime()) / (1000 * 60 * 60 * 24);
+
+    if (diff < 7) {
+      return 'New';
+    }
+
+    if (item.diets.includes('vegetarian')) {
+      return 'Popular';
+    }
+
+    return undefined;
+  }
+
+  private getCategoryName(id: string): string {
+    return this.categories().find((c) => c.id === id)?.label ?? id;
   }
 }

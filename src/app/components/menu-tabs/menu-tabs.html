@@ -6,7 +6,7 @@
     [class.menu-tabs__item--active]="tab.id === activeTabId"
     (click)="tabSelected.emit(tab.id)"
   >
-    {{ tab.label }}
+    {{ tab.name }}
   </button>
 
   <button type="button" class="menu-tabs__add" *ngIf="!isAddTab()" (click)="onAddNewTab()">

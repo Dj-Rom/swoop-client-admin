@@ -27,12 +27,17 @@ export class AddNewItemMenu implements OnInit {
       this.allergens.set(data);
     });
   }
+
   item: MenuItem = {
+    id: '',
     name: '',
     description: '',
+
     price: 0,
     diets: [],
     allergens: [],
+    dateAdded: '22-07-2026 10:00',
+    stopList: false,
   };
 
   updateItem(data: Partial<MenuItem>) {

@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { MenuService } from '../../../services/api/menu';
 
 @Component({
   selector: 'app-toggle-switch',
@@ -8,10 +9,12 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 })
 export class ToggleSwitch {
   @Input() checked = false;
+
   @Output() checkedChange = new EventEmitter<boolean>();
 
   toggle(): void {
     this.checked = !this.checked;
+
     this.checkedChange.emit(this.checked);
   }
 }

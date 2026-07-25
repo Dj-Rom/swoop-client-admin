@@ -1,1 +1,19 @@
-<p>stop-list works!</p>
+<header>
+  <h2>Stop-List</h2>
+  <app-breadcrumbs />
+</header>
+<div class="table">
+  <thead class="header">
+    <div></div>
+    <div>Headline</div>
+    <div>Description</div>
+    <div>Price, zł</div>
+    <div>Diets</div>
+    <div>Allergens</div>
+    <div>Date added</div>
+    <div>Stop List</div>
+  </thead>
+  <span class="span_empty" *ngIf="stopListItems().length == 0">There is nothing here...</span>
+  <app-stop-list-table-row *ngFor="let item of stopListItems()" [item]="item">
+  </app-stop-list-table-row>
+</div>

@@ -73,6 +73,9 @@
   line-height: 20px;
   letter-spacing: 0px;
   color: $color-text-secondary;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .dish-row__price {

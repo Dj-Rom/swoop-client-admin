@@ -1,12 +1,18 @@
 import { CommonModule, NgIf } from '@angular/common';
-import { Component, EventEmitter, Input, Output, signal } from '@angular/core';
-import { ViewChild, ElementRef } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  Output,
+  ViewChild,
+  signal,
+  inject,
+} from '@angular/core';
+
 import { MenuService } from '../../services/api/menu';
 import { FirstLetterUp } from '../../utils/helpers';
-export interface MenuTab {
-  id: string;
-  label: string;
-}
+import { Menu } from '../../models/menu.model';
 
 @Component({
   selector: 'app-menu-tabs',
@@ -16,33 +22,56 @@ export interface MenuTab {
   styleUrl: './menu-tabs.scss',
 })
 export class MenuTabs {
-  constructor(public menuService: MenuService) {}
-  @Input() tabs: MenuTab[] = [];
+  private menuService = inject(MenuService);
+
+  @Input() tabs: Menu[] = [];
+
   @Input() activeTabId = '';
+
   @Output() tabSelected = new EventEmitter<string>();
-  @Output() addMenu = new EventEmitter<void>();
+
   isAddTab = signal(false);
-  @ViewChild('tabInput') tabInput!: ElementRef<HTMLInputElement>;
+
+  @ViewChild('tabInput')
+  tabInput!: ElementRef<HTMLInputElement>;
+
+  selectTab(id: string) {
+    this.tabSelected.emit(id);
+  }
 
   onSaveNewTab(event: KeyboardEvent) {
-    if (event?.key == 'Enter') {
-      let valueStr = this.tabInput.nativeElement.value.trim().toString();
-      if (valueStr.length > 1) {
-        let newCategory = {
-          id: valueStr.toLowerCase(),
-          label: FirstLetterUp(valueStr),
-        };
-        this.menuService.addMenuTab(newCategory);
-      }
-      this.tabInput.nativeElement.value = '';
-      this.isAddTab.set(false);
+    if (event.key !== 'Enter') {
+      return;
     }
+
+    const value = this.tabInput.nativeElement.value.trim();
+
+    if (value.length > 1) {
+      const newMenu: Menu = {
+        id: value.toLowerCase().replaceAll(' ', '-'),
+
+        name: FirstLetterUp(value),
+
+        description: `${FirstLetterUp(value)} menu`,
+
+        active: true,
+
+        dateCreated: new Date().toISOString(),
+      };
+
+      this.menuService.addMenu(newMenu);
+    }
+
+    this.tabInput.nativeElement.value = '';
+
+    this.isAddTab.set(false);
   }
 
   onAddNewTab() {
     this.isAddTab.set(true);
+
     setTimeout(() => {
-      this.tabInput.nativeElement.focus();
+      this.tabInput?.nativeElement.focus();
     });
   }
 }

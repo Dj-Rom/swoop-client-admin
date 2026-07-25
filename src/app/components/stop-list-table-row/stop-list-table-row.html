@@ -1,0 +1,43 @@
+<div class="row">
+  <div class="dish">
+    <img
+      class="dish-row__image"
+      [src]="item.image ?? 'https://placehold.co/64x64'"
+      [alt]="item.name"
+    />
+
+    <div>
+      <h3 class="dish__title">
+        {{ item.name }}
+      </h3>
+
+      <p class="dish__category">
+        {{ item.category }}
+      </p>
+
+      <span class="dish__badge"> Popular </span>
+    </div>
+  </div>
+
+  <div class="description">
+    {{ item.description }}
+  </div>
+
+  <div class="price">
+    {{ item.price | number: '1.2-2' }}
+  </div>
+  <div class="tags">
+    <app-tag *ngFor="let diet of item.diets" [label]="diet"></app-tag>
+  </div>
+
+  <div class="tags">
+    <app-tag *ngFor="let allergen of item.allergens" [label]="allergen"></app-tag>
+  </div>
+
+  <div class="date">
+    {{ item.dateAdded }}
+  </div>
+
+  <app-toggle-switch [checked]="item.stopList" (checkedChange)="onStopListToggled($event)">
+  </app-toggle-switch>
+</div>

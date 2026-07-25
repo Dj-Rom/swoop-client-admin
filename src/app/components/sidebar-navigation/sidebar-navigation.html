@@ -1,38 +1,71 @@
-<nav class="sidebar">
+<button
+  class="burger"
+  type="button"
+  [class.active]="isOpen()"
+  (click)="toggle()"
+  aria-label="Toggle menu"
+>
+  <span></span>
+  <span></span>
+  <span></span>
+</button>
+
+<div class="overlay" [class.visible]="isOpen()" (click)="close()"></div>
+<nav class="sidebar" [class.open]="isOpen()">
   <app-nav-profile-card class="app_nav_profile_card" />
 
   <div class="nav_group">
     <details open>
       <summary>Menu</summary>
       <ul>
-        <li class="active"><a routerLink="/menu/structure">Structure</a></li>
-        <li class=""><a routerLink="/menu/stop-list">Stop-List</a></li>
-        <li class=""><a routerLink="/menu/diets-and-allergens">Diets and Allergens</a></li>
+        <li routerLinkActive="active">
+          <a routerLink="/menu/structure" (click)="close()">Structure</a>
+        </li>
+        <li routerLinkActive="active">
+          <a routerLink="/menu/stop-list" (click)="close()">Stop-List</a>
+        </li>
+        <li routerLinkActive="active">
+          <a routerLink="/menu/diets-and-allergens" (click)="close()">Diets and Allergens</a>
+        </li>
       </ul>
     </details>
 
     <details>
       <summary>About Us</summary>
       <ul>
-        <li class=""><a routerLink="/about-us/welcome-page">Welcome page</a></li>
-        <li class=""><a routerLink="/about-us/staff">Staff</a></li>
+        <li routerLinkActive="active">
+          <a routerLink="/about-us/welcome-page" (click)="close()">Welcome page</a>
+        </li>
+        <li routerLinkActive="active">
+          <a routerLink="/about-us/staff" (click)="close()">Staff</a>
+        </li>
       </ul>
     </details>
 
     <details>
       <summary>Orders</summary>
       <ul>
-        <li class=""><a routerLink="/orders/today">Today</a></li>
-        <li class=""><a routerLink="/orders/history">History</a></li>
-        <li class=""><a routerLink="/orders/analytics">Analytics</a></li>
+        <li routerLinkActive="active">
+          <a routerLink="/orders/today" (click)="close()">Today</a>
+        </li>
+        <li routerLinkActive="active">
+          <a routerLink="/orders/history" (click)="close()">History</a>
+        </li>
+        <li routerLinkActive="active">
+          <a routerLink="/orders/analytics" (click)="close()">Analytics</a>
+        </li>
       </ul>
     </details>
 
     <details>
       <summary>Settings</summary>
       <ul>
-        <li class=""><a routerLink="/settings/language">Language</a></li>
-        <li class=""><a routerLink="/settings/profile">Profile</a></li>
+        <li routerLinkActive="active">
+          <a routerLink="/settings/language" (click)="close()">Language</a>
+        </li>
+        <li routerLinkActive="active">
+          <a routerLink="/settings/profile" (click)="close()">Profile</a>
+        </li>
       </ul>
     </details>
   </div>

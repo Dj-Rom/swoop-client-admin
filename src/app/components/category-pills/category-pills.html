@@ -4,7 +4,7 @@
     type="button"
     class="category-pills__item"
     [class.category-pills__item--active]="category.id === activeCategoryId"
-    (click)="categorySelected.emit(category.id)"
+    (click)="selectCategory(category.id)"
   >
     {{ category.label }}
   </button>
@@ -15,15 +15,19 @@
     (click)="onAddNewCategory()"
     *ngIf="!isAddCategory()"
   >
-    <img src="assets/icons/Plus.svg" class="category-pills__add-icon" /> Add category
+    <img src="assets/icons/Plus.svg" class="category-pills__add-icon" />
+
+    Add category
   </button>
+
   <input
-    (keydown)="onSaveNewCategory($event)"
-    type="text"
-    #categoryInput
-    id="category_add_input"
-    class="category-pills__add"
-    (blur)="isAddCategory.set(false)"
     *ngIf="isAddCategory()"
+    #categoryInput
+    type="text"
+    autocomplete="off"
+    placeholder="Category name"
+    class="category-pills__add"
+    (keydown)="onSaveNewCategory($event)"
+    (blur)="isAddCategory.set(false)"
   />
 </div>

@@ -1,0 +1,54 @@
+@use '../../../styles/var' as *;
+.table {
+  width: 100%;
+  font-family: Inter, sans-serif;
+  color: #111827;
+}
+.span_empty {
+  display: block;
+  margin: 30px auto;
+  text-align: center;
+  font-family: Inter;
+  font-weight: 700;
+  font-style: Bold;
+  font-size: 32px;
+  leading-trim: NONE;
+  line-height: 40px;
+  letter-spacing: 0%;
+  color: $color-black;
+}
+header {
+  width: 1058px;
+  height: 40px;
+  justify-content: space-between;
+  angle: 0 deg;
+  opacity: 1;
+  margin: 56px;
+
+  h2 {
+    font-family: Inter;
+    font-weight: 700;
+    font-style: Bold;
+    font-size: 32px;
+    leading-trim: NONE;
+    line-height: 40px;
+    letter-spacing: 0%;
+    color: $color-black;
+  }
+}
+.header {
+  display: grid;
+  min-width: 1098px;
+  grid-template-columns: 64px 225px 225px 104px 122px 122px 112px 83px;
+  column-gap: 16px;
+  margin-left: 64px;
+  align-items: center;
+  height: 32px;
+  border-bottom: 0.5px solid rgba(210, 216, 221, 1);
+  font: 400 12px/16px Inter;
+  color: $color-text-secondary;
+}
+
+.rows {
+  width: 100%;
+}

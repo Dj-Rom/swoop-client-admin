@@ -1,0 +1,151 @@
+@use '../../styles/var' as *;
+.row {
+  display: grid;
+
+  grid-template-columns: 64px 225px 225px 104px 122px 122px 112px 83px;
+  column-gap: 16px;
+  margin-left: 64px;
+  align-items: start;
+  align-content: center;
+  justify-items: start;
+
+  height: 96px;
+  angle: 0 deg;
+  opacity: 1;
+  padding-top: 16px;
+  padding-bottom: 16px;
+  border-bottom-width: 1px;
+  border-bottom: 1px solid rgba(210, 216, 221, 1);
+}
+.dish-row__image {
+  width: 64px;
+  height: 64px;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+/* Dish column */
+
+.dish {
+  grid-column: span 2;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+img {
+  display: block;
+  width: 64px;
+  height: 64px;
+  object-fit: cover;
+  border-radius: 4px; // if you want rounded thumbnails
+}
+
+.dish__content {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.dish__title {
+  font-family: Inter;
+  font-weight: 500;
+  font-style: Medium;
+  font-size: 14px;
+  leading-trim: NONE;
+  line-height: 20px;
+  letter-spacing: 0px;
+  vertical-align: middle;
+  color: $color-black;
+}
+
+.dish__category {
+  font-family: Inter;
+  font-weight: 400;
+  font-style: Regular;
+  font-size: 12px;
+  leading-trim: NONE;
+  line-height: 18px;
+  letter-spacing: 0px;
+  vertical-align: middle;
+  color: $color-text-secondary;
+}
+
+.dish__badge {
+  margin-top: 4px;
+  font-family: Inter;
+  font-weight: 400;
+  font-style: Regular;
+  font-size: 12px;
+  leading-trim: NONE;
+  line-height: 16px;
+  letter-spacing: 0%;
+  color: $color-text-secondary;
+  height: 20px;
+  angle: 0 deg;
+  opacity: 1;
+  gap: 8px;
+  padding-top: 2px;
+  padding-right: 8px;
+  padding-bottom: 2px;
+  padding-left: 8px;
+  background: rgba(241, 241, 241, 1);
+}
+
+/* Description */
+
+.description {
+  font-family: Inter;
+  font-weight: 400;
+  font-style: Regular;
+  font-size: 14px;
+  leading-trim: NONE;
+  line-height: 20px;
+  letter-spacing: 0px;
+  color: $color-text-secondary;
+}
+
+/* Price */
+
+.price {
+  font-family: Inter;
+  font-weight: 500;
+  font-style: Medium;
+  font-size: 14px;
+  leading-trim: NONE;
+  line-height: 20px;
+  letter-spacing: 0px;
+  text-align: center;
+  vertical-align: middle;
+  color: $color-black;
+  text-align: left;
+}
+
+/* Tags */
+
+.tags {
+  text-align: left;
+  display: flex;
+  width: 110px;
+  height: 64px;
+  angle: 0 deg;
+  opacity: 1;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+/* Date */
+
+.date {
+  width: 100px;
+  font-family: Inter;
+  font-weight: 400;
+  font-style: Regular;
+  font-size: 14px;
+  leading-trim: NONE;
+  line-height: 20px;
+  letter-spacing: 0px;
+  text-align: center;
+  vertical-align: middle;
+  color: $color-text-secondary;
+}

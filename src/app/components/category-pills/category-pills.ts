@@ -1,12 +1,18 @@
 import { CommonModule, NgIf } from '@angular/common';
-import { Component, EventEmitter, Input, Output, signal } from '@angular/core';
-import { ViewChild, ElementRef } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  Output,
+  ViewChild,
+  signal,
+  inject,
+} from '@angular/core';
+
 import { MenuService } from '../../services/api/menu';
 import { FirstLetterUp } from '../../utils/helpers';
-export interface Category {
-  id: string;
-  label: string;
-}
+import { Category } from '../../models/category.model';
 
 @Component({
   selector: 'app-category-pills',
@@ -16,33 +22,55 @@ export interface Category {
   styleUrl: './category-pills.scss',
 })
 export class CategoryPills {
-  constructor(public menuService: MenuService) {}
+  private menuService = inject(MenuService);
+
+  @Input()
+  categories: Category[] = [];
+
+  @Input()
+  activeCategoryId = '';
+
+  @Output()
+  categorySelected = new EventEmitter<string>();
+
   isAddCategory = signal(false);
-  @ViewChild('categoryInput') categoryInput!: ElementRef<HTMLInputElement>;
+
+  @ViewChild('categoryInput')
+  categoryInput!: ElementRef<HTMLInputElement>;
+
+  selectCategory(id: string) {
+    this.categorySelected.emit(id);
+  }
+
   onSaveNewCategory(event: KeyboardEvent) {
-    if (event?.key == 'Enter') {
-      let valueStr = this.categoryInput.nativeElement.value.trim().toString();
-      if (valueStr.length > 1) {
-        let newCategory = {
-          id: valueStr.toLowerCase(),
-          label: FirstLetterUp(valueStr),
-        };
-        this.menuService.addCategory(newCategory);
-      }
-      this.categoryInput.nativeElement.value = '';
-      this.isAddCategory.set(false);
+    if (event.key !== 'Enter') {
+      return;
     }
+
+    const value = this.categoryInput.nativeElement.value.trim();
+
+    if (value.length > 1) {
+      const label = FirstLetterUp(value);
+
+      const newCategory: Category = {
+        id: value.toLowerCase().replaceAll(' ', '-'),
+
+        label,
+      };
+
+      this.menuService.addCategory(newCategory);
+    }
+
+    this.categoryInput.nativeElement.value = '';
+
+    this.isAddCategory.set(false);
   }
 
   onAddNewCategory() {
     this.isAddCategory.set(true);
+
     setTimeout(() => {
-      this.categoryInput.nativeElement.focus();
+      this.categoryInput?.nativeElement.focus();
     });
   }
-
-  @Input() categories: Category[] = [];
-  @Input() activeCategoryId = '';
-  @Output() categorySelected = new EventEmitter<string>();
-  @Output() addCategory = new EventEmitter<void>();
 }
