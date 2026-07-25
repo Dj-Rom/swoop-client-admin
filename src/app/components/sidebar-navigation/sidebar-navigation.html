@@ -22,7 +22,12 @@
           <a routerLink="/menu/structure" (click)="close()">Structure</a>
         </li>
         <li routerLinkActive="active">
-          <a routerLink="/menu/stop-list" (click)="close()">Stop-List</a>
+          <a routerLink="/menu/stop-list" (click)="close()"
+            >Stop-List
+            <span class="nav_stop_list_count" *ngIf="menuService.stopListCount() as count">
+              {{ count }}
+            </span></a
+          >
         </li>
         <li routerLinkActive="active">
           <a routerLink="/menu/diets-and-allergens" (click)="close()">Diets and Allergens</a>

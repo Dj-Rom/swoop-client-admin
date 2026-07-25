@@ -179,7 +179,24 @@ details {
     opacity: 1;
   }
 }
-
+.nav_stop_list_count {
+  margin-left: 4px;
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  font-family: Inter;
+  font-weight: 500;
+  font-style: Medium;
+  font-size: 14px;
+  leading-trim: NONE;
+  line-height: 20px;
+  letter-spacing: 0%;
+  text-align: center;
+  color: rgba(255, 255, 255, 1);
+  gap: 10px;
+  background: var(--Accents-Red, rgba(255, 56, 60, 1));
+  border-radius: 50%;
+}
 .sidebar {
   position: relative;
   width: 270px;

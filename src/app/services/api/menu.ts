@@ -1,4 +1,4 @@
-import { Injectable, signal } from '@angular/core';
+import { computed, Injectable, signal } from '@angular/core';
 
 export interface Menu {
   id: string;
@@ -474,6 +474,7 @@ export class MenuService {
       items.map((i) => (i.id === id ? { ...i, stopList: false, stopListDateAdded: '' } : i)),
     );
   }
-
+  // MenuService
+  stopListCount = computed(() => this.menuItems().filter((item) => item.stopList === true).length);
   syncWithServer() {}
 }
