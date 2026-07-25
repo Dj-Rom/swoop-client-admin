@@ -1,1 +1,0 @@
-import{Ga as n,Ua as t,Va as o,fb as s}from"./chunk-OCYUQJWF.js";var g=class a{static \u0275fac=function(e){return new(e||a)};static \u0275cmp=n({type:a,selectors:[["app-language"]],decls:2,vars:0,template:function(e,p){e&1&&(t(0,"p"),s(1,"language works!"),o())},encapsulation:2})};export{g as Language};
