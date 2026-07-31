@@ -1,1 +1,0 @@
-import{Ha as o,Wa as i,Xa as n,kb as a}from"./chunk-ZV7NSXRC.js";var p=class t{static \u0275fac=function(e){return new(e||t)};static \u0275cmp=o({type:t,selectors:[["app-profile"]],decls:2,vars:0,template:function(e,s){e&1&&(i(0,"p"),a(1,"profile works!"),n())},encapsulation:2})};export{p as Profile};
