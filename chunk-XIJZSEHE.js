@@ -1,1 +1,0 @@
-import{Ja as o,Ya as s,Za as i,pb as n}from"./chunk-5CIPAHQN.js";var r=class t{static \u0275fac=function(e){return new(e||t)};static \u0275cmp=o({type:t,selectors:[["app-history"]],decls:2,vars:0,template:function(e,p){e&1&&(s(0,"p"),n(1,"history works!"),i())},encapsulation:2})};export{r as History};
