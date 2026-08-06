@@ -1,1 +1,0 @@
-import{Ka as a,Za as f,_a as n,qb as s}from"./chunk-3M4OD36Q.js";var o=class e{static \u0275fac=function(t){return new(t||e)};static \u0275cmp=a({type:e,selectors:[["app-staff"]],decls:2,vars:0,template:function(t,p){t&1&&(f(0,"p"),s(1,"staff works!"),n())},encapsulation:2})};export{o as Staff};

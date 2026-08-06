@@ -1,0 +1,1 @@
+import{$a as o,Ka as a,ab as n,sb as m}from"./chunk-RGT44IXV.js";var p=class t{static \u0275fac=function(e){return new(e||t)};static \u0275cmp=a({type:t,selectors:[["app-welcome-page"]],decls:2,vars:0,template:function(e,l){e&1&&(o(0,"p"),m(1,"welcome-page works!"),n())},encapsulation:2})};export{p as WelcomePage};
