@@ -1,7 +1,9 @@
 @use '../../styles/var' as *;
+
 :host {
   display: block;
-  width: 1098px;
+  width: 100%;
+  max-width: $content-max-width;
 }
 
 .category-pills {
@@ -11,8 +13,37 @@
   align-items: center;
   gap: 10px;
   padding: 16px 8px;
-  flex-direction: row;
-  flex-wrap: wrap;
+}
+
+.menu-tabs__tab-wrapper,
+.category-pills__pill-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.menu-tabs__delete,
+.category-pills__delete {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #d64545;
+  color: #fff;
+  border: none;
+  font-size: 11px;
+  line-height: 1;
+  cursor: pointer;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+}
+
+.menu-tabs__tab-wrapper:hover .menu-tabs__delete,
+.category-pills__pill-wrapper:hover .category-pills__delete {
+  display: flex;
 }
 
 .category-pills__item {
@@ -24,19 +55,12 @@
   background: rgba(255, 255, 255, 1);
   font-family: Inter;
   font-weight: 400;
-  font-style: Regular;
   font-size: 14px;
-  leading-trim: NONE;
   line-height: 20px;
-  letter-spacing: 0px;
-
   cursor: pointer;
 
   &:hover {
     border-color: #0c0000;
-  }
-
-  &--active {
   }
 }
 
@@ -60,5 +84,32 @@
   &:hover {
     border-color: $color-border-secondary;
     color: #111;
+  }
+}
+
+@include tablet {
+  .category-pills {
+    padding: 12px 0;
+    gap: 8px;
+  }
+
+  .category-pills__item,
+  .category-pills__add {
+    height: 32px;
+    padding: 0 14px;
+    font-size: 13px;
+  }
+
+  .category-pills__add {
+    min-width: auto;
+  }
+}
+
+@include mobile {
+  .category-pills__item,
+  .category-pills__add {
+    height: 30px;
+    padding: 0 12px;
+    font-size: 12px;
   }
 }

@@ -1,13 +1,23 @@
 <div class="category-pills">
-  <button
-    *ngFor="let category of categories"
-    type="button"
-    class="category-pills__item"
-    [class.category-pills__item--active]="category.id === activeCategoryId"
-    (click)="selectCategory(category.id)"
-  >
-    {{ category.label }}
-  </button>
+  <div class="category-pills__pill-wrapper" *ngFor="let category of categories">
+    <button
+      type="button"
+      class="category-pills__delete"
+      (click)="onDeleteCategory(category.id, $event)"
+      aria-label="Delete category"
+      title="Delete category"
+    >
+      &times;
+    </button>
+    <button
+      type="button"
+      class="category-pills__item"
+      [class.category-pills__item--active]="category.id === activeCategoryId"
+      (click)="selectCategory(category.id)"
+    >
+      {{ category.name }}
+    </button>
+  </div>
 
   <button
     type="button"

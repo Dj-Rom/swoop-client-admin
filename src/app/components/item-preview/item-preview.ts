@@ -1,37 +1,28 @@
-import { Component, inject, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+// components/item-preview/item-preview.ts
+import { Component, Input, inject } from '@angular/core';
+import { CommonModule, CurrencyPipe, NgIf, NgFor } from '@angular/common';
+import { TagService } from '../../services/tag.service';
 import { MenuItem } from '../../models/menu-item.model';
-import { NgIf, NgFor } from '@angular/common';
-import { TagService, TagItem } from '../../services/tag.service';
-import { Tag } from '../ui/tag/tag';
 
 @Component({
   selector: 'app-item-preview',
   standalone: true,
-  imports: [NgIf, NgFor, Tag],
+  imports: [NgIf, NgFor, CurrencyPipe], // Удалите Tag из imports
   templateUrl: './item-preview.html',
-  styleUrl: './item-preview.scss',
+  styleUrls: ['./item-preview.scss'],
 })
-export class ItemPreviewComponent implements OnChanges {
+export class ItemPreviewComponent {
+  private tagService = inject(TagService);
+
   @Input() item!: MenuItem;
 
-  selectedDiets: TagItem[] = [];
-  selectedAllergens: TagItem[] = [];
-  tagService = inject(TagService);
-  ngOnChanges(changes: SimpleChanges) {
-    if (changes['item']) {
-      console.log('PREVIEW ITEM:', this.item);
-
-      this.loadTags();
-    }
+  get selectedDiets() {
+    if (!this.item?.diets) return [];
+    return this.tagService.getSelectedItems(this.tagService.diets(), this.item.diets);
   }
 
-  loadTags() {
-    this.tagService.getDiets().subscribe((diets) => {
-      this.selectedDiets = this.tagService.getSelectedItems(diets, this.item.diets);
-    });
-
-    this.tagService.getAllergens().subscribe((allergens) => {
-      this.selectedAllergens = this.tagService.getSelectedItems(allergens, this.item.allergens);
-    });
+  get selectedAllergens() {
+    if (!this.item?.allergens) return [];
+    return this.tagService.getSelectedItems(this.tagService.allergens(), this.item.allergens);
   }
 }

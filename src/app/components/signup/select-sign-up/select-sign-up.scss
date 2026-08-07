@@ -1,0 +1,282 @@
+:host {
+  display: flex;
+  width: 100%;
+  min-height: 100vh;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  box-sizing: border-box;
+}
+
+.auth-page {
+}
+
+.auth-panel {
+  background: transparent;
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+}
+
+.auth-panel--art {
+  background: transparent;
+}
+
+.auth-panel__inner {
+  width: 100%;
+  max-width: 420px;
+  padding: 32px 24px;
+  /* Основной эффект стекла */
+  background: rgba(255, 255, 255, 0.1);
+  /* Полупрозрачный белый фон */
+  backdrop-filter: blur(12px);
+  /* Размытие фона за блоком */
+  -webkit-backdrop-filter: blur(12px);
+  /* Поддержка для Safari */
+
+  /* Границы и объем */
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  /* Тонкий светлый блик на границе */
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  /* Мягкая тень */
+
+  /* Чтобы содержимое отступало от краев внутри (так как padding top/bottom у вас 32px, добавим внутренние отступы по бокам для содержимого) */
+  box-sizing: border-box;
+}
+
+.auth-title {
+  margin: 0 0 24px;
+  font-size: 26px;
+  font-weight: 700;
+  color: white;
+  letter-spacing: -0.02em;
+}
+
+.btn {
+  width: 100%;
+  box-sizing: border-box;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    background-color 0.15s ease,
+    border-color 0.15s ease;
+}
+
+.btn--google {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 11px 16px;
+  background: #ffffff;
+  border: 1px solid #dcdcdc;
+  color: #1f1f1f;
+}
+
+.btn--google:hover {
+  background: #f7f7f7;
+}
+
+.google-icon {
+  width: 18px;
+  height: 18px;
+  flex: none;
+}
+
+.divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 20px 0;
+}
+
+.divider__line {
+  flex: 1;
+  height: 1px;
+  background: #e2e2e2;
+}
+
+.divider__label {
+  font-size: 13px;
+  color: #d9d5d5;
+}
+
+.field {
+  margin-bottom: 16px;
+}
+
+.field__label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #111111;
+}
+
+.field__row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.field__row .field__label {
+  margin-bottom: 0;
+}
+
+.field__aside-link {
+  font-size: 12px;
+  color: #6b6b6b;
+  text-decoration: underline;
+  white-space: nowrap;
+}
+
+.field__aside-link:hover {
+  color: #111111;
+}
+
+.field__input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 11px 12px;
+  background: #f4f4f4;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  font-size: 14px;
+  color: #111111;
+  outline: none;
+  transition:
+    border-color 0.15s ease,
+    background-color 0.15s ease;
+}
+
+.field__input::placeholder {
+  color: #9a9a9a;
+}
+
+.field__input:focus {
+  background: #ffffff;
+  border-color: #111111;
+}
+
+.field__input--error {
+  border-color: #d64545;
+}
+
+.field__error {
+  margin: 6px 0 0;
+  font-size: 12px;
+  color: #d64545;
+}
+
+.btn--primary {
+  margin-top: 4px;
+  padding: 12px 16px;
+  background: #111111;
+  border: 1px solid #111111;
+  color: #ffffff;
+}
+
+.btn--primary:hover {
+  background: #000000;
+}
+.btn--outline {
+  margin-top: 4px;
+  padding: 12px 16px;
+  background: #f5f4f4;
+  border: 1px solid #111111;
+  color: #060606;
+}
+.ch_box {
+  margin-right: 10px;
+}
+.btn--outline:hover {
+  background: #000000;
+}
+.auth-footer {
+  margin: 16px 0 0;
+  text-align: center;
+  font-size: 13px;
+  color: #3eee04;
+}
+
+.auth-footer__link {
+  color: #05fb4a;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.auth-footer__link:hover {
+  text-decoration: underline;
+}
+.auth-subtitle {
+  text-align: center;
+  color: #d5d8df;
+  margin-bottom: 24px;
+}
+
+.btn--google {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  width: 100%;
+  padding: 12px;
+  background: white;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-bottom: 16px;
+}
+
+.btn--google:hover {
+  background: #f9fafb;
+}
+
+.google-icon {
+  width: 20px;
+  height: 20px;
+}
+
+.divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 16px 0;
+}
+
+.divider__line {
+  flex: 1;
+  height: 1px;
+  background: #e5e7eb;
+}
+
+.divider__label {
+  color: #e2e7ee;
+  font-size: 14px;
+}
+@media (max-width: 860px) {
+  .auth-panel--art {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  :host {
+    padding: 12px;
+  }
+
+  .auth-panel__inner {
+    padding: 24px 16px;
+  }
+
+  .auth-title {
+    font-size: 22px;
+  }
+}

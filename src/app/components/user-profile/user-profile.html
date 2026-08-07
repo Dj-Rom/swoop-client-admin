@@ -1,0 +1,376 @@
+<div class="profile-container">
+  <!-- Loading State -->
+  <div *ngIf="userService.loading()" class="loading-state">
+    <div class="spinner"></div>
+    <p>Loading profile...</p>
+  </div>
+
+  <!-- Profile Content -->
+  <ng-container *ngIf="!userService.loading()">
+    <!-- Profile Header -->
+    <div class="profile-header">
+      <div class="avatar-wrapper">
+        <div class="avatar-container">
+          <img
+            *ngIf="userService.userAvatar()"
+            [src]="userService.userAvatar()"
+            [alt]="userService.userName()"
+            class="avatar"
+            (error)="handleImageError()"
+          />
+          <div *ngIf="!userService.userAvatar()" class="avatar-placeholder">
+            {{ userService.userInitials() }}
+          </div>
+          <button class="upload-avatar-btn" (click)="triggerFileUpload()">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path
+                d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"
+              />
+              <circle cx="12" cy="13" r="4" />
+            </svg>
+          </button>
+          <input
+            type="file"
+            #fileInput
+            accept="image/*"
+            (change)="onFileSelected($event)"
+            class="hidden"
+          />
+        </div>
+      </div>
+      <div class="profile-title">
+        <h1>{{ userService.userFullName() || 'User' }}</h1>
+        <p class="user-role">
+          <span
+            class="role-badge"
+            [class.admin]="userService.isAdmin()"
+            [class.manager]="userService.isManager()"
+          >
+            {{ userService.userRole() || 'User' }}
+          </span>
+        </p>
+        <p class="user-email">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+            <polyline points="22,6 12,13 2,6" />
+          </svg>
+          {{ userService.userEmail() }}
+        </p>
+        <p *ngIf="userService.currentUser()?.clientId" class="user-client-id">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="14"
+            height="14"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <rect x="2" y="7" width="20" height="14" rx="2" ry="2" />
+            <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
+          </svg>
+          Client ID: {{ userService.currentUser()?.clientId }}
+        </p>
+      </div>
+    </div>
+
+    <div class="profile-content">
+      <!-- Profile Information Section -->
+      <div class="profile-section">
+        <div class="section-header">
+          <h2>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+              <circle cx="12" cy="7" r="4" />
+            </svg>
+            Profile Information
+          </h2>
+          <span class="section-subtitle">Update your personal information</span>
+        </div>
+
+        <!-- Success Message -->
+        <div *ngIf="successMessage" class="success-message">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+            <polyline points="22 4 12 14.01 9 11.01" />
+          </svg>
+          {{ successMessage }}
+        </div>
+
+        <!-- Profile Form -->
+        <form [formGroup]="profileForm" (ngSubmit)="updateProfile()" class="profile-form">
+          <div class="form-group">
+            <label for="fullName">
+              Full Name
+              <span class="required">*</span>
+            </label>
+            <input
+              type="text"
+              id="fullName"
+              formControlName="fullName"
+              placeholder="Enter your full name"
+              [class.invalid]="
+                profileForm.get('fullName')?.invalid && profileForm.get('fullName')?.touched
+              "
+            />
+            <div
+              *ngIf="profileForm.get('fullName')?.invalid && profileForm.get('fullName')?.touched"
+              class="form-error"
+            >
+              Full name is required
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="firstName">First Name</label>
+              <input
+                type="text"
+                id="firstName"
+                formControlName="firstName"
+                placeholder="First name"
+              />
+            </div>
+            <div class="form-group">
+              <label for="lastName">Last Name</label>
+              <input type="text" id="lastName" formControlName="lastName" placeholder="Last name" />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="phone">Phone Number</label>
+            <input type="tel" id="phone" formControlName="phone" placeholder="+1 234 567 890" />
+          </div>
+
+          <div class="form-group">
+            <label for="company">Company</label>
+            <input type="text" id="company" formControlName="company" placeholder="Company name" />
+          </div>
+
+          <div class="form-group">
+            <label for="address">Address</label>
+            <textarea
+              id="address"
+              formControlName="address"
+              rows="3"
+              placeholder="Your address"
+            ></textarea>
+          </div>
+
+          <div class="form-actions">
+            <button
+              type="submit"
+              class="btn btn-primary"
+              [disabled]="profileForm.invalid || userService.loading()"
+            >
+              <span *ngIf="userService.loading()" class="spinner-small"></span>
+              {{ userService.loading() ? 'Saving...' : 'Save Changes' }}
+            </button>
+            <button type="button" class="btn btn-secondary" (click)="resetForm()">Reset</button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Change Password Section -->
+      <div class="profile-section">
+        <div class="section-header">
+          <h2>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+              <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+            </svg>
+            Change Password
+          </h2>
+          <span class="section-subtitle">Update your password to keep your account secure</span>
+        </div>
+
+        <form [formGroup]="passwordForm" (ngSubmit)="changePassword()" class="profile-form">
+          <div class="form-group">
+            <label for="currentPassword">Current Password</label>
+            <div class="password-input-wrapper">
+              <input
+                [type]="showCurrentPassword ? 'text' : 'password'"
+                id="currentPassword"
+                formControlName="currentPassword"
+                placeholder="Enter current password"
+                [class.invalid]="
+                  passwordForm.get('currentPassword')?.invalid &&
+                  passwordForm.get('currentPassword')?.touched
+                "
+              />
+              <button type="button" class="toggle-password" (click)="toggleCurrentPassword()">
+                {{ showCurrentPassword ? '🙈' : '👁️' }}
+              </button>
+            </div>
+            <div
+              *ngIf="
+                passwordForm.get('currentPassword')?.invalid &&
+                passwordForm.get('currentPassword')?.touched
+              "
+              class="form-error"
+            >
+              Current password is required
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="newPassword">New Password</label>
+            <div class="password-input-wrapper">
+              <input
+                [type]="showNewPassword ? 'text' : 'password'"
+                id="newPassword"
+                formControlName="newPassword"
+                placeholder="Enter new password (min 6 characters)"
+                [class.invalid]="newPasswordInvalid"
+              />
+              <button type="button" class="toggle-password" (click)="toggleNewPassword()">
+                {{ showNewPassword ? '🙈' : '👁️' }}
+              </button>
+            </div>
+            <div *ngIf="newPasswordInvalid" class="form-error">
+              Password must be at least 6 characters
+            </div>
+            <div class="password-strength" *ngIf="passwordForm.get('newPassword')?.value">
+              <div class="strength-bar">
+                <div class="strength-fill" [style.width.%]="getPasswordStrength()"></div>
+              </div>
+              <span class="strength-text">{{ getPasswordStrengthText() }}</span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="confirmPassword">Confirm New Password</label>
+            <div class="password-input-wrapper">
+              <input
+                [type]="showConfirmPassword ? 'text' : 'password'"
+                id="confirmPassword"
+                formControlName="confirmPassword"
+                placeholder="Confirm new password"
+                [class.invalid]="passwordMismatch"
+              />
+              <button type="button" class="toggle-password" (click)="toggleConfirmPassword()">
+                {{ showConfirmPassword ? '🙈' : '👁️' }}
+              </button>
+            </div>
+            <div *ngIf="passwordMismatch" class="form-error">Passwords do not match</div>
+          </div>
+
+          <div class="form-actions">
+            <button
+              type="submit"
+              class="btn btn-primary"
+              [disabled]="passwordForm.invalid || userService.loading()"
+            >
+              <span *ngIf="userService.loading()" class="spinner-small"></span>
+              {{ userService.loading() ? 'Changing...' : 'Change Password' }}
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Danger Zone -->
+      <div class="profile-section danger-zone">
+        <div class="section-header">
+          <h2>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M12 9v4" />
+              <path d="M12 17h.01" />
+              <circle cx="12" cy="12" r="10" />
+            </svg>
+            Danger Zone
+          </h2>
+          <span class="section-subtitle">Irreversible actions for your account</span>
+        </div>
+
+        <div class="danger-actions">
+          <div class="danger-item">
+            <div class="danger-info">
+              <h4>Logout</h4>
+              <p>Sign out of your account on this device</p>
+            </div>
+            <button class="btn btn-danger" (click)="logout()">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+                <polyline points="16 17 21 12 16 7" />
+                <line x1="21" y1="12" x2="9" y2="12" />
+              </svg>
+              Logout
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+</div>

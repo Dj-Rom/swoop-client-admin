@@ -1,4 +1,5 @@
-import { Injectable, inject } from '@angular/core';
+// services/tag.service.ts
+import { Injectable, inject, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 
@@ -34,6 +35,19 @@ export class TagService {
     { id: 'sesame', label: 'Sesame seeds', isSelected: false },
     { id: 'molluscs', label: 'Molluscs', isSelected: false },
   ];
+
+  // Добавьте сигналы для хранения тегов
+  private dietsSignal = signal<TagItem[]>(this.defaultDiets);
+  private allergensSignal = signal<TagItem[]>(this.defaultAllergens);
+
+  // Методы для получения тегов как массива (для использования в компонентах)
+  diets(): TagItem[] {
+    return this.dietsSignal();
+  }
+
+  allergens(): TagItem[] {
+    return this.allergensSignal();
+  }
 
   getDiets(): Observable<TagItem[]> {
     return of(this.defaultDiets);

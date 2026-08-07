@@ -210,7 +210,7 @@ details {
 // ...existing .app_nav_profile_card, .nav_group, summary, ul, li, li.active rules stay as-is...
 
 // ── Tablet & mobile: off-canvas drawer ─────────────────────
-@media (max-width: 1300px) {
+@include sidebar-drawer {
   .burger {
     display: flex;
   }
@@ -233,7 +233,7 @@ details {
   }
 }
 
-@media (max-width: 480px) {
+@include mobile {
   .sidebar {
     width: 85vw;
     max-width: 270px;

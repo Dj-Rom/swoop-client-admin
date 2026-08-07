@@ -3,6 +3,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { DishTableGroup } from '../dish-table-group/dish-table-group';
 import { Dish } from '../dish-row/dish-row';
 
+// components/dish-table/dish-table.ts
 export interface DishGroup {
   id: string;
   title: string;

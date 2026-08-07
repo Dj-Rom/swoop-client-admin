@@ -1,60 +1,135 @@
 @use '../../../../styles/var' as *;
+
 :host {
-  width: calc(100% - 278px);
+  display: block;
+  width: 100%;
+  max-width: $content-max-width;
 }
+
 h1 {
   font-family: Inter;
   font-weight: 700;
-  font-style: Bold;
   font-size: 32px;
-  leading-trim: NONE;
   line-height: 40px;
-  letter-spacing: 0%;
   color: $color-black;
   margin-top: 20px;
 }
+
+.select-with-add {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  flex-wrap: wrap;
+
+  select {
+    flex: 1;
+    min-width: 200px;
+  }
+
+  .btn-add {
+    padding: 0.375rem 0.75rem;
+    background: #28a745;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    white-space: nowrap;
+
+    &:hover {
+      background: #218838;
+    }
+  }
+}
+
+.add-form {
+  margin-top: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 0.75rem;
+  background: #f8f9fa;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+
+  .add-actions {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+
+    .btn-save {
+      padding: 0.25rem 0.75rem;
+      background: #007bff;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+
+      &:hover {
+        background: #0069d9;
+      }
+    }
+
+    .btn-cancel {
+      padding: 0.25rem 0.75rem;
+      background: #6c757d;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+
+      &:hover {
+        background: #5a6268;
+      }
+    }
+  }
+}
+
+.form-hint {
+  margin-top: 0.25rem;
+  font-size: 0.875rem;
+  color: #6c757d;
+}
+
 label {
   display: inline-block;
   font-family: Inter;
   font-weight: 400;
-  font-style: Regular;
   font-size: 16px;
-  leading-trim: NONE;
   line-height: 24px;
-  letter-spacing: 0%;
   color: $color-black;
   margin-top: 32px;
   margin-bottom: 8px;
 }
+
 .page {
   display: grid;
   grid-template-columns: 1fr 517px;
   gap: 60px;
-  padding: 16px;
+  padding: 16px 0;
 }
 
 .editor {
   background: white;
+  min-width: 0;
 }
 
 .preview-area {
-  margin: 0 20px 0 0;
   background: rgba(241, 241, 241, 1);
-  width: 517px;
-  height: 800px;
-  angle: 0 deg;
+  width: 100%;
+  max-width: 517px;
+  min-height: 600px;
   display: flex;
-  opacity: 1;
   flex-direction: column;
   align-items: center;
+  padding: 16px;
+  box-sizing: border-box;
+
   h3 {
     font-family: Inter;
     font-weight: 700;
-    font-style: Bold;
     font-size: 20px;
-    leading-trim: NONE;
     line-height: 28px;
-    letter-spacing: 0%;
     color: $color-black;
     margin-bottom: 32px;
     margin-top: 16px;
@@ -67,52 +142,100 @@ label {
   justify-content: flex-end;
   gap: 10px;
   max-width: 517px;
+  flex-wrap: wrap;
 }
 
-.save {
+.save,
+.cancel {
   border: 0;
   width: 108px;
   height: 40px;
-  padding-top: 8px;
-  padding-right: 12px;
-  padding-bottom: 8px;
-  padding-left: 12px;
-  gap: 10px;
-  angle: 0 deg;
-  opacity: 1;
+  padding: 8px 12px;
   font-family: Inter;
   font-weight: 600;
-  font-style: Semi Bold;
   font-size: 16px;
-  leading-trim: NONE;
   line-height: 24px;
-  letter-spacing: 0px;
   text-align: center;
-  vertical-align: middle;
+  cursor: pointer;
+}
+
+.save {
   background-color: $color-black;
   color: $color-inverse;
 }
 
 .cancel {
-  border: 0;
-  width: 108px;
-  height: 40px;
-  padding-top: 8px;
-  padding-right: 12px;
-  padding-bottom: 8px;
-  padding-left: 12px;
-  gap: 10px;
-  angle: 0 deg;
-  opacity: 1;
-  font-family: Inter;
-  font-weight: 600;
-  font-style: Semi Bold;
-  font-size: 16px;
-  leading-trim: NONE;
-  line-height: 24px;
-  letter-spacing: 0px;
-  text-align: center;
-  vertical-align: middle;
   background: $color-tertiary;
   color: $color-black;
+}
+
+@include desktop-down {
+  .page {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  .preview-area {
+    max-width: none;
+    min-height: auto;
+    order: -1;
+  }
+
+  h1 {
+    font-size: 24px;
+    line-height: 32px;
+  }
+}
+
+@include tablet {
+  .page {
+    gap: 24px;
+    padding: 0;
+  }
+
+  .actions {
+    max-width: none;
+    width: 100%;
+  }
+
+  .save,
+  .cancel {
+    flex: 1;
+    min-width: 108px;
+  }
+}
+
+@include mobile {
+  h1 {
+    font-size: 20px;
+    line-height: 28px;
+    margin-top: 12px;
+  }
+
+  label {
+    font-size: 14px;
+    margin-top: 24px;
+  }
+
+  .select-with-add select {
+    min-width: 100%;
+  }
+
+  .preview-area {
+    padding: 12px;
+
+    h3 {
+      font-size: 18px;
+      margin-bottom: 16px;
+    }
+  }
+
+  .actions {
+    flex-direction: column-reverse;
+  }
+
+  .save,
+  .cancel {
+    width: 100%;
+  }
 }

@@ -2,7 +2,7 @@
   <div class="dish">
     <img
       class="dish-row__image"
-      [src]="item.image ?? 'https://placehold.co/64x64'"
+      [src]="item.imageUrl ?? 'https://placehold.co/64x64'"
       [alt]="item.name"
     />
 
@@ -12,20 +12,26 @@
       </h3>
 
       <p class="dish__category">
-        {{ item.category }}
+        {{ item.categoryName || 'Uncategorized' }}
+        <!-- Исправлено: category -> categoryName -->
       </p>
 
-      <span class="dish__badge"> Popular </span>
+      <span class="dish__badge" *ngIf="item.badgeLabel">
+        <!-- Добавлено условие -->
+        {{ item.badgeLabel }}
+      </span>
     </div>
   </div>
 
   <div class="description">
-    {{ item.description }}
+    {{ item.description || 'No description' }}
+    <!-- Добавлена обработка null -->
   </div>
 
   <div class="price">
     {{ item.price | number: '1.2-2' }}
   </div>
+
   <div class="tags">
     <app-tag *ngFor="let diet of item.diets" [label]="diet"></app-tag>
   </div>
@@ -35,9 +41,10 @@
   </div>
 
   <div class="date">
-    {{ item.dateAdded }}
+    {{ item.createdAt | date: 'mediumDate' }}
+    <!-- Исправлено: dateAdded -> createdAt -->
   </div>
 
-  <app-toggle-switch [checked]="item.stopList" (checkedChange)="onStopListToggled($event)">
+  <app-toggle-switch [checked]="item.isStopList" (checkedChange)="onStopListToggled($event)">
   </app-toggle-switch>
 </div>

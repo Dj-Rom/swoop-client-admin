@@ -1,0 +1,76 @@
+<div class="auth-page">
+  <section class="auth-panel">
+    <div class="auth-panel__inner">
+      <h1 class="auth-title">Let's get started</h1>
+      <p class="auth-subtitle">Step 1 of 3 — Personal Information</p>
+
+      <form [formGroup]="form" (ngSubmit)="continue()" novalidate>
+        <div class="field">
+          <label class="field__label" for="fullName">Full Name *</label>
+          <input
+            id="fullName"
+            type="text"
+            class="field__input"
+            placeholder="John Doe"
+            formControlName="fullName"
+            [class.field__input--error]="fullNameInvalid"
+          />
+          <p class="field__error" *ngIf="fullNameInvalid">Full name is required.</p>
+        </div>
+
+        <div class="field">
+          <label class="field__label" for="email">Email *</label>
+          <input
+            id="email"
+            type="email"
+            class="field__input"
+            placeholder="john@example.com"
+            formControlName="email"
+            [class.field__input--error]="emailInvalid"
+          />
+          <p class="field__error" *ngIf="emailInvalid">Valid email is required.</p>
+        </div>
+
+        <div class="field">
+          <label class="field__label" for="phone">Phone</label>
+          <input
+            id="phone"
+            type="tel"
+            class="field__input"
+            placeholder="+48 123 456 789"
+            formControlName="phone"
+          />
+        </div>
+
+        <div class="field">
+          <label class="field__label" for="password">Password *</label>
+          <input
+            id="password"
+            type="password"
+            class="field__input"
+            placeholder="Min 8 characters"
+            formControlName="password"
+            [class.field__input--error]="passwordInvalid"
+          />
+          <p class="field__error" *ngIf="passwordInvalid">
+            Min 8 chars, 1 uppercase, 1 lowercase, 1 number, 1 special.
+          </p>
+        </div>
+
+        <div class="field">
+          <label class="field__label" for="country">Country</label>
+          <select id="country" class="field__input" formControlName="country">
+            <option value="">Select Country</option>
+            <option value="Poland">Poland</option>
+            <option value="Germany">Germany</option>
+            <option value="Czech Republic">Czech Republic</option>
+            <option value="Slovakia">Slovakia</option>
+            <option value="Ukraine">Ukraine</option>
+          </select>
+        </div>
+
+        <button type="submit" class="btn btn--primary" [disabled]="form.invalid">Continue</button>
+      </form>
+    </div>
+  </section>
+</div>

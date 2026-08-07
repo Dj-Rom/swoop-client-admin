@@ -1,13 +1,11 @@
 @use '../../../styles/var' as *;
+
 :host {
   @include main-position;
-
-  display: block;
-}
-:host {
   display: block;
 }
 
 .structure-page {
-  margin: 0 0 0 44px;
+  width: 100%;
+  max-width: $content-max-width;
 }

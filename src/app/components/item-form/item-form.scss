@@ -1,9 +1,13 @@
 @use '../../styles/var' as *;
+
 :host {
   margin-top: 32px;
   display: block;
+  width: 100%;
 }
+
 label {
+  width: 100%;
   max-width: 517px;
   display: flex;
   flex-direction: column;

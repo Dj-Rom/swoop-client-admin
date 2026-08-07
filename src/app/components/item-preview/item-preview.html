@@ -1,22 +1,16 @@
-<div class="card">
-  <img *ngIf="item.image" [src]="item.image" />
-  <div class="card_img_div" *ngIf="!item.image"></div>
+<!-- components/item-preview/item-preview.html -->
+<div class="card" *ngIf="item">
+  <img *ngIf="item.imageUrl" [src]="item.imageUrl" [alt]="item.name" />
+  <div class="card_img_div" *ngIf="!item.imageUrl"></div>
   <div class="dots">• • •</div>
 
-  <h2>
-    {{ item.name || 'Dish name' }}
-  </h2>
-
-  <p>
-    {{ item.description || 'Description' }}
-  </p>
-
-  <strong> {{ item.price || '00.00' }} € </strong>
-  <br />
-
-  <div class="tags_group">
-    <app-tag *ngFor="let diet of selectedDiets" [label]="diet.label"> </app-tag>
-
-    <app-tag *ngFor="let allergen of selectedAllergens" [label]="allergen.label"> </app-tag>
+  <h2>{{ item.name || 'No name' }}</h2>
+  <p>{{ item.description || 'No description' }}</p>
+  <strong class="price">{{ item.price | currency }}</strong>
+  <div class="tags">
+    <span *ngFor="let diet of item.diets" class="tag">{{ diet }}</span>
+  </div>
+  <div class="tags">
+    <span *ngFor="let allergen of item.allergens" class="tag">{{ allergen }}</span>
   </div>
 </div>

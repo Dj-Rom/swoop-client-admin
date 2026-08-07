@@ -1,4 +1,5 @@
 @use '../../styles/var' as *;
+
 :host {
   display: block;
 }
@@ -8,11 +9,8 @@
   margin: 0;
   font-family: Inter;
   font-weight: 600;
-  font-style: Semi Bold;
   font-size: 20px;
-  leading-trim: NONE;
   line-height: 28px;
-  letter-spacing: 0%;
   color: $color-black;
 }
 
@@ -38,4 +36,19 @@
   border: 1px dashed #ccc;
   border-radius: 8px;
   margin: 4px 12px;
+}
+
+@include tablet {
+  .dish-table-group__title {
+    padding: 12px 0 8px 16px;
+    font-size: 18px;
+    line-height: 24px;
+  }
+}
+
+@include mobile {
+  .dish-table-group__title {
+    padding: 10px 0 6px 12px;
+    font-size: 16px;
+  }
 }

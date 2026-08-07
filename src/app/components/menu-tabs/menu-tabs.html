@@ -1,24 +1,45 @@
+<!-- components/menu-tabs/menu-tabs.html -->
 <div class="menu-tabs">
-  <button
-    *ngFor="let tab of tabs"
-    type="button"
-    class="menu-tabs__item"
-    [class.menu-tabs__item--active]="tab.id === activeTabId"
-    (click)="tabSelected.emit(tab.id)"
-  >
-    {{ tab.name }}
-  </button>
+  <div class="menu-tabs__tab-wrapper" *ngFor="let tab of tabs">
+    <button
+      type="button"
+      class="menu-tabs__delete"
+      (click)="onDeleteTab(tab.id, $event)"
+      aria-label="Delete tab"
+      title="Delete tab"
+    >
+      &times;
+    </button>
+    <button
+      type="button"
+      class="menu-tabs__item"
+      [class.menu-tabs__item--active]="tab.id === activeTabId"
+      (click)="tabSelected.emit(tab.id)"
+    >
+      {{ tab.name }}
+    </button>
+  </div>
 
-  <button type="button" class="menu-tabs__add" *ngIf="!isAddTab()" (click)="onAddNewTab()">
+  <!-- Кнопка добавления (если не в режиме ввода и не отправляется) -->
+  <button
+    type="button"
+    class="menu-tabs__add"
+    *ngIf="!isAddTab() && !isSubmitting()"
+    (click)="onAddNewTab()"
+  >
     <img src="assets/icons/Plus.svg" class="menu-tabs__add-icon" /> Add Menu
   </button>
+
+  <!-- Поле ввода (если режим добавления) -->
   <input
     type="text"
     #tabInput
     class="menu-tabs__add"
     style="border: none; outline: none"
-    *ngIf="isAddTab()"
+    *ngIf="isAddTab() && !isSubmitting()"
     (blur)="isAddTab.set(false)"
     (keydown)="onSaveNewTab($event)"
+    [disabled]="isSubmitting()"
+    placeholder="Menu name..."
   />
 </div>

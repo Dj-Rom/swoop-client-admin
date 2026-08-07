@@ -1,17 +1,24 @@
 @use '../../styles/var' as *;
+
 :host {
   display: block;
 }
 
+// ===================== Desktop (default) =====================
 .dish-row {
   display: grid;
-  grid-template-columns: 40px 64px 1fr 1fr 104px 122px 122px 83px;
+  grid-template-columns: 40px 64px 1fr 1fr 380px 83px;
   align-items: center;
   gap: 16px;
   height: 96px;
   padding: 16px 12px;
   border-bottom: 1px solid $color-border-secondary;
   background: #fff;
+  transition: background-color 0.15s ease;
+
+  &:hover {
+    background: $color-bg-head;
+  }
 
   &--stopped {
     .dish-row__title,
@@ -19,6 +26,7 @@
     .dish-row__price {
       opacity: 0.5;
     }
+
     .dish-row__title {
       text-decoration: line-through;
     }
@@ -42,52 +50,53 @@
 .dish-row__image {
   width: 64px;
   height: 64px;
-  border-radius: 8px;
+  border-radius: 10px;
   object-fit: cover;
+  background: $color-bg-head; // fallback tone while loading / on broken src
+  flex-shrink: 0;
 }
 
 .dish-row__title-cell {
   display: flex;
   flex-direction: column;
   gap: 4px;
+  min-width: 0;
 }
 
 .dish-row__title {
   font-family: Inter;
   font-weight: 500;
-  font-style: Medium;
   font-size: 14px;
-  leading-trim: NONE;
   line-height: 20px;
-  letter-spacing: 0px;
-  vertical-align: middle;
   color: $color-black;
 }
 
 .dish-row__description {
   font-family: Inter;
   font-weight: 400;
-  font-style: Regular;
   font-size: 14px;
-  leading-trim: NONE;
   line-height: 20px;
-  letter-spacing: 0px;
   color: $color-text-secondary;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
+// Reproduces the original 104 / 122 / 122 columns exactly — desktop
+// visuals stay identical even though price/diets/allergens are now
+// wrapped in one container for easier reflow below.
+.dish-row__meta {
+  display: grid;
+  grid-template-columns: 104px 122px 122px;
+  align-items: center;
+  gap: 16px;
+}
+
 .dish-row__price {
   font-family: Inter;
   font-weight: 500;
-  font-style: Medium;
   font-size: 14px;
-  leading-trim: NONE;
   line-height: 20px;
-  letter-spacing: 0px;
-  text-align: start;
-  vertical-align: middle;
   color: $color-black;
 }
 
@@ -95,4 +104,129 @@
 .dish-row__allergens {
   display: flex;
   gap: 6px;
+  flex-wrap: wrap;
+}
+
+.dish-row__toggle-cell {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 4px;
+}
+
+.dish-row__toggle-label {
+  display: none; // only surfaced on mobile, see below
+}
+
+// ===================== Tablet: grid row -> card =====================
+@include tablet {
+  .delete {
+    position: absolute;
+    right: 32px;
+  }
+  .dish-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    height: auto;
+    gap: 12px;
+    padding: 16px;
+    border: 1px solid $color-border-secondary;
+    border-radius: 12px;
+    margin-bottom: 10px;
+    box-shadow: 0 1px 2px rgba(16, 24, 40, 0.04);
+  }
+  .dish-row__toggle-label {
+    display: block;
+  }
+  .dish-row__drag {
+    display: none;
+  }
+  .dish-row__toggle-cell {
+    width: 100%;
+    justify-content: space-between;
+  }
+  .dish-row__image {
+    width: 56px;
+    height: 56px;
+    flex-shrink: 0;
+  }
+
+  .dish-row__title-cell {
+    flex: 1;
+    min-width: 0;
+    justify-content: center;
+  }
+
+  .dish-row__toggle-cell {
+    flex-shrink: 0;
+  }
+
+  .dish-row__description {
+    flex-basis: 100%;
+    white-space: normal;
+    overflow: visible;
+    text-overflow: unset;
+  }
+
+  .dish-row__meta {
+    flex-basis: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px 20px;
+    padding-top: 12px;
+    border-top: 1px solid $color-border-secondary;
+  }
+
+  .dish-row__price {
+    font-size: 15px;
+    font-weight: 600;
+  }
+}
+
+// ===================== Mobile: tighter card, labeled toggle =====================
+@include mobile {
+  .dish-row {
+    padding: 12px;
+    gap: 10px;
+  }
+
+  .dish-row__image {
+    width: 48px;
+    height: 48px;
+  }
+
+  .dish-row__title {
+    font-size: 13px;
+  }
+
+  .dish-row__description {
+    font-size: 13px;
+  }
+
+  .dish-row__meta {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .dish-row__diets,
+  .dish-row__allergens {
+    width: 100%;
+  }
+
+  .dish-row__toggle-cell {
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 4px;
+  }
+
+  .dish-row__toggle-label {
+    display: block;
+    font-family: Inter;
+    font-size: 11px;
+    line-height: 14px;
+    color: $color-text-secondary;
+  }
 }

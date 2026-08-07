@@ -8,9 +8,41 @@ $color-border-secondary: rgba(210, 216, 221, 1);
 $color-bg-active: rgba(0, 0, 0, 0.05);
 $color-bg-white: rgba(255, 255, 255, 0.8);
 $color-bg-head: rgba(252, 252, 252, 1);
+
+$content-max-width: 1098px;
+
+$bp-mobile: 480px;
+$bp-tablet: 768px;
+$bp-desktop: 1024px;
+$bp-sidebar: 1024px;
+
+@mixin mobile {
+  @media (max-width: #{$bp-mobile}) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media (max-width: #{$bp-tablet}) {
+    @content;
+  }
+}
+
+@mixin desktop-down {
+  @media (max-width: #{$bp-desktop}) {
+    @content;
+  }
+}
+
+@mixin sidebar-drawer {
+  @media (max-width: #{$bp-sidebar}) {
+    @content;
+  }
+}
+
 @mixin main-position {
   position: relative;
   top: 0;
-  padding-top: 56px;
-  width: calc(100vw - 278px);
+  width: 100%;
+  max-width: $content-max-width;
 }

@@ -1,13 +1,21 @@
+// services/api/menu.ts
 export interface MenuItem {
   id: string;
-  image?: string;
+  menuId: string;
   name: string;
-  category?: string;
-  description: string;
+  description?: string;
   price: number;
-  diets: string[];
-  allergens: string[];
-  dateAdded: string;
+  categoryId?: string;
+  categoryName?: string;
+  isAvailable: boolean;
+  isStopList: boolean;
   stopListDateAdded?: string;
-  stopList: boolean;
+  sortOrder: number;
+  imageUrl?: string;
+  diets: string[];
+  imageFileName?: string | null;
+  allergens: string[];
+  createdAt: string;
+  updatedAt?: string;
+  badgeLabel?: string; // Добавлено
 }

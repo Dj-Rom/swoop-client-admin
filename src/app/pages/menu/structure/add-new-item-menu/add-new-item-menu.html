@@ -2,11 +2,117 @@
   <section class="editor">
     <app-breadcrumbs />
     <h1>Add new</h1>
-    <label>Media</label>
-    <app-image-upload (changed)="updateItem({ image: $event })"></app-image-upload>
 
+    <!-- ВЫБОР ВКЛАДКИ (для блюда) -->
+    <div class="form-group">
+      <label>Menu Tab</label>
+      <div class="select-with-add">
+        <select
+          #tabSelect
+          [value]="selectedMenuTabId()"
+          (change)="onMenuTabSelected(tabSelect.value)"
+          class="form-control"
+        >
+          <option value="">Select Menu Tab</option>
+          <option *ngFor="let tab of menuTabs()" [value]="tab.id">{{ tab.name }}</option>
+        </select>
+        <button
+          type="button"
+          class="btn-add"
+          (click)="showAddTab.set(true)"
+          *ngIf="!showAddTab() && menus().length > 0"
+        >
+          + Add
+        </button>
+      </div>
+
+      <!-- Форма добавления вкладки -->
+      <div class="add-form" *ngIf="showAddTab()">
+        <input
+          type="text"
+          placeholder="New tab name"
+          [value]="newTabName()"
+          (input)="newTabName.set($any($event.target).value)"
+          class="form-control"
+        />
+        <select
+          [value]="newTabMenuId()"
+          (change)="newTabMenuId.set($any($event.target).value)"
+          class="form-control"
+        >
+          <option value="">Select Menu</option>
+          <option *ngFor="let menu of menus()" [value]="menu.id">{{ menu.name }}</option>
+        </select>
+        <div class="add-actions">
+          <button class="btn-save" (click)="createNewTab()">Save</button>
+          <button class="btn-cancel" (click)="cancelAddTab()">Cancel</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- КАТЕГОРИЯ -->
+    <div class="form-group">
+      <label>Category</label>
+      <div class="select-with-add">
+        <select
+          #catSelect
+          [value]="selectedCategoryId()"
+          (change)="onCategorySelected(catSelect.value)"
+          class="form-control"
+        >
+          <option value="">Select Category</option>
+          <option *ngFor="let cat of filteredCategories()" [value]="cat.id">{{ cat.name }}</option>
+        </select>
+        <button
+          type="button"
+          class="btn-add"
+          (click)="showAddCategory.set(true)"
+          *ngIf="!showAddCategory() && menuTabs().length > 0"
+        >
+          + Add
+        </button>
+      </div>
+
+      <!-- Форма добавления категории с выбором вкладки -->
+      <div class="add-form" *ngIf="showAddCategory()">
+        <select
+          [value]="newCategoryMenuTabId()"
+          (change)="newCategoryMenuTabId.set($any($event.target).value)"
+          class="form-control"
+        >
+          <option value="">Select Menu Tab</option>
+          <option *ngFor="let tab of menuTabs()" [value]="tab.id">{{ tab.name }}</option>
+        </select>
+        <input
+          type="text"
+          placeholder="New category name"
+          [value]="newCategoryName()"
+          (input)="newCategoryName.set($any($event.target).value)"
+          class="form-control"
+        />
+        <div class="add-actions">
+          <button class="btn-save" (click)="createNewCategory()">Save</button>
+          <button class="btn-cancel" (click)="cancelAddCategory()">Cancel</button>
+        </div>
+      </div>
+
+      <p
+        class="form-hint"
+        *ngIf="selectedMenuTabId() && filteredCategories().length === 0 && !showAddCategory()"
+      >
+        No categories yet for this tab — add one using the "+ Add" button.
+      </p>
+    </div>
+
+    <label>Media</label>
+    <app-image-upload
+      [currentImageUrl]="item().imageUrl ?? null"
+      [currentFileName]="item().imageFileName ?? null"
+      (imageUploaded)="onImageUploaded($event)"
+      (imageRemoved)="onImageRemoved()"
+    ></app-image-upload>
     <app-item-form
-      [item]="item"
+      [item]="item()"
       [diets]="diets()"
       [allergens]="allergens()"
       (itemChange)="updateItem($event)"
@@ -14,15 +120,13 @@
     </app-item-form>
 
     <div class="actions">
-      <button class="cancel">Cancel</button>
-
+      <button class="cancel" (click)="onCancel()">Cancel</button>
       <button class="save" (click)="save()">Save Dish</button>
     </div>
   </section>
 
   <section class="preview-area">
     <h3>Preview</h3>
-
-    <app-item-preview [item]="item"> </app-item-preview>
+    <app-item-preview [item]="item()"></app-item-preview>
   </section>
 </div>

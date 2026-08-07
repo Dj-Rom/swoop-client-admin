@@ -1,32 +1,9 @@
-<!-- Stan 1: Brak zdjęć -> Duży Dropzone -->
-<label class="upload" *ngIf="images.length === 0">
-  <input type="file" hidden (change)="upload($event)" />
-
-  <svg
-    class="cloud-icon"
-    xmlns="http://www.w3.org/2000/svg"
-    fill="none"
-    viewBox="0 0 24 24"
-    stroke-width="1.5"
-    stroke="currentColor"
-  >
-    <path
-      stroke-linecap="round"
-      stroke-linejoin="round"
-      d="M12 16.5V9.75m0 0l3 3m-3-3l-3 3M6.75 19.5a4.5 4.5 0 01-1.41-8.775 5.25 5.25 0 0110.233-2.33 3 3 0 013.758 3.848A3.752 3.752 0 0118 19.5H6.75z"
-    />
-  </svg>
-
-  <span>Select a file or drag and drop here</span>
-  <small>JPG, PNG, GIF max 10MB</small>
-</label>
-
-<!-- Stan 2: Pokazuj podgląd / galerię, gdy dodano przynajmniej 1 zdjęcie -->
-<div class="image-gallery" *ngIf="images.length > 0">
-  <!-- Miniaturki dodanych zdjęć -->
-  <div class="thumbnail" *ngFor="let img of images; let i = index">
-    <img [src]="img" alt="Uploaded preview" />
-    <button type="button" class="delete-btn" (click)="removeImage(i)">
+<!-- image-upload.html -->
+<div class="image-upload-container">
+  <!-- Если изображение загружено – показываем превью с кнопкой удаления -->
+  <div *ngIf="currentImageUrl" class="preview-wrapper">
+    <img [src]="currentImageUrl" alt="Uploaded image" class="preview-image" />
+    <button type="button" class="delete-btn" (click)="removeImage()" title="Remove image">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         fill="none"
@@ -43,10 +20,9 @@
     </button>
   </div>
 
-  <!-- Przycisk dołączania kolejnego zdjęcia (kafelek) -->
-  <label class="upload-tile">
-    <input type="file" hidden (change)="upload($event)" />
-
+  <!-- Если изображения нет – показываем зону загрузки -->
+  <label *ngIf="!currentImageUrl" class="upload-zone" [class.loading]="isLoading">
+    <input type="file" hidden (change)="onFileSelected($event)" accept="image/*" />
     <svg
       class="cloud-icon"
       xmlns="http://www.w3.org/2000/svg"
@@ -61,7 +37,12 @@
         d="M12 16.5V9.75m0 0l3 3m-3-3l-3 3M6.75 19.5a4.5 4.5 0 01-1.41-8.775 5.25 5.25 0 0110.233-2.33 3 3 0 013.758 3.848A3.752 3.752 0 0118 19.5H6.75z"
       />
     </svg>
-
-    <span>Add Image</span>
+    <span>{{ isLoading ? 'Uploading...' : 'Select a file or drag and drop here' }}</span>
+    <small *ngIf="!isLoading">JPG, PNG, WEBP, GIF max 10MB</small>
   </label>
+
+  <!-- Сообщение об ошибке -->
+  <div *ngIf="errorMessage" class="error-message">
+    {{ errorMessage }}
+  </div>
 </div>

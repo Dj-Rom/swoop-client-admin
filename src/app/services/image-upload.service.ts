@@ -1,34 +1,42 @@
+// image-upload.service.ts
 import { Injectable, inject } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Observable, catchError, map, throwError } from 'rxjs';
+import { Observable, catchError, throwError } from 'rxjs';
+import { environment } from '../../environments/environment';
 
-@Injectable({
-  providedIn: 'root',
-})
+export interface UploadResult {
+  url: string;
+  fileName: string;
+}
+
+@Injectable({ providedIn: 'root' })
 export class ImageUploadService {
   private http = inject(HttpClient);
-  private readonly apiUrl = 'https://api.example.com/images'; // Replace with your endpoint
+  private apiUrl = environment.apiUrl; // используем реальный URL из окружения
 
   /**
-   * Uploads file to backend API
+   * Загружает файл на сервер (S3) и возвращает URL и имя файла
    */
-  uploadImage(file: File): Observable<string> {
+  uploadImage(file: File): Observable<UploadResult> {
     const formData = new FormData();
-    formData.append('image', file, file.name);
+    formData.append('file', file, file.name);
+    return this.http
+      .post<UploadResult>(`${this.apiUrl}/upload/photo`, formData)
+      .pipe(catchError(this.handleError));
+  }
 
-    return this.http.post<{ url: string }>(`${this.apiUrl}/upload`, formData).pipe(
-      map((res) => res.url),
-      catchError(this.handleError),
-    );
-  }
-  getImages(): Observable<string[]> {
-    return this.http.get<{ images: string[] }>(`${this.apiUrl}`).pipe(
-      map((res) => res.images),
-      catchError(this.handleError),
-    );
-  }
   /**
-   * Reads file locally into Base64 / Data URL string
+   * Удаляет файл по имени (fileName)
+   */
+  deleteImage(fileName: string): Observable<void> {
+    return this.http
+      .delete<void>(`${this.apiUrl}/upload/photo/${fileName}`)
+      .pipe(catchError(this.handleError));
+  }
+
+  /**
+   * (Опционально) Читает файл локально в Data URL, если нужно показать превью до загрузки.
+   * Этот метод можно оставить для других целей.
    */
   readFileAsDataUrl(file: File): Promise<string> {
     return new Promise((resolve, reject) => {
@@ -39,16 +47,8 @@ export class ImageUploadService {
     });
   }
 
-  deleteImage(imageUrl: string): Observable<void> {
-    return this.http
-      .delete<void>(`${this.apiUrl}/delete`, {
-        body: { url: imageUrl },
-      })
-      .pipe(catchError(this.handleError));
-  }
-
   private handleError(error: HttpErrorResponse): Observable<never> {
     console.error('[ImageUploadService]', error);
-    return throwError(() => new Error(error.message || 'Image upload failed.'));
+    return throwError(() => new Error(error.message || 'Image operation failed.'));
   }
 }

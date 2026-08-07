@@ -1,0 +1,57 @@
+<div class="auth-page">
+  <section class="auth-panel">
+    <div class="auth-panel__inner">
+      <h1 class="auth-title">Contact Information</h1>
+      <p class="auth-subtitle">Step 3 of 3 — Almost done!</p>
+
+      <form [formGroup]="form" (ngSubmit)="submit()" novalidate>
+        <div class="field">
+          <label class="field__label" for="companyEmail">Company Email</label>
+          <input
+            id="companyEmail"
+            type="email"
+            class="field__input"
+            placeholder="info@restaurant.com"
+            formControlName="companyEmail"
+            [class.field__input--error]="companyEmailInvalid"
+          />
+        </div>
+
+        <div class="field">
+          <label class="field__label" for="contactNumber">Contact Number</label>
+          <input
+            id="contactNumber"
+            type="tel"
+            class="field__input"
+            placeholder="+48 123 456 789"
+            formControlName="contactNumber"
+          />
+        </div>
+
+        <label class="checkbox">
+          <input type="checkbox" class="ch_box" formControlName="acceptTerms" />
+          <span
+            >I agree to <a href="/terms" target="_blank">Terms</a> and
+            <a href="/privacy" target="_blank">Privacy Policy</a></span
+          >
+        </label>
+        <p
+          class="field__error"
+          *ngIf="form.get('acceptTerms')?.invalid && form.get('acceptTerms')?.touched"
+        >
+          You must accept the terms.
+        </p>
+
+        <p class="alert alert--error" *ngIf="submitError">{{ submitError }}</p>
+        <p class="alert alert--success" *ngIf="submitSuccess">{{ submitSuccess }}</p>
+
+        <div class="btn-row">
+          <button type="button" class="btn btn--outline" (click)="back()">← Back</button>
+          <button type="submit" class="btn btn--primary" [disabled]="form.invalid || submitting">
+            {{ submitting ? 'Creating Account...' : 'Sign Up' }}
+          </button>
+        </div>
+      </form>
+    </div>
+  </section>
+</div>

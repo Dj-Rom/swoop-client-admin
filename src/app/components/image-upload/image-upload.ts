@@ -1,6 +1,8 @@
+// image-upload.component.ts
 import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ImageUploadService } from '../../services/image-upload.service';
+import { firstValueFrom } from 'rxjs';
+import { ImageUploadService, UploadResult } from '../../services/image-upload.service';
 
 @Component({
   selector: 'app-image-upload',
@@ -12,54 +14,69 @@ import { ImageUploadService } from '../../services/image-upload.service';
 export class ImageUploadComponent {
   private imageUploadService = inject(ImageUploadService);
 
-  private _images: string[] = [];
+  // Текущее изображение (URL для отображения)
+  @Input() currentImageUrl: string | null = null;
+  // Имя файла (для удаления, если нужно)
+  @Input() currentFileName: string | null = null;
 
-  @Input()
-  set images(val: string[] | undefined | null) {
-    this._images = val || [];
-  }
-  get images(): string[] {
-    return this._images;
-  }
+  // События для родителя
+  @Output() imageUploaded = new EventEmitter<UploadResult>();
+  @Output() imageRemoved = new EventEmitter<void>();
 
-  @Output() imagesChange = new EventEmitter<string[]>();
-  @Output() changed = new EventEmitter<string>();
+  isLoading = false;
+  errorMessage: string | null = null;
 
-  async upload(event: Event): Promise<void> {
+  // Обработчик выбора файла
+  async onFileSelected(event: Event): Promise<void> {
     const input = event.target as HTMLInputElement;
     if (!input.files || input.files.length === 0) return;
 
     const file = input.files[0];
 
+    // Валидация размера и типа
+    const maxSize = 10 * 1024 * 1024; // 10 MB
+    const allowedTypes = ['image/jpeg', 'image/png', 'image/webp', 'image/gif'];
+    if (file.size > maxSize) {
+      this.errorMessage = 'File size exceeds 10 MB limit.';
+      return;
+    }
+    if (!allowedTypes.includes(file.type)) {
+      this.errorMessage = 'Invalid file type. Allowed: JPEG, PNG, WEBP, GIF.';
+      return;
+    }
+
+    this.isLoading = true;
+    this.errorMessage = null;
+
     try {
-      // 1. Konwersja lokalna do Data URL
-      const newImg = await this.imageUploadService.readFileAsDataUrl(file);
-
-      // Jeśli chcesz używać bezpośrednio z backendem, użyj:
-      // const newImg = await firstValueFrom(this.imageUploadService.uploadImage(file));
-
-      const updatedImages = [...this.images, newImg];
-
-      // Aktualizacja stanu i powiadomienie rodzica
-      this.images = updatedImages;
-      this.imagesChange.emit(updatedImages);
-      this.changed.emit(newImg);
+      // ✅ Используем сервис для загрузки
+      const result = await firstValueFrom(this.imageUploadService.uploadImage(file));
+      if (result) {
+        this.currentImageUrl = result.url;
+        this.currentFileName = result.fileName;
+        this.imageUploaded.emit(result);
+      }
     } catch (error) {
-      console.error('Błąd podczas dodawania zdjęcia:', error);
+      console.error('Upload error:', error);
+      this.errorMessage = 'Failed to upload image. Please try again.';
     } finally {
-      input.value = ''; // Reset inputu pliku
+      this.isLoading = false;
+      input.value = ''; // Сбрасываем input
     }
   }
 
-  removeImage(index: number): void {
-    const updatedImages = this.images.filter((_, i) => i !== index);
+  // ❌ УДАЛЯЕМ дублирующий метод uploadImage – он уже есть в сервисе
 
-    this.images = updatedImages;
-    this.imagesChange.emit(updatedImages);
+  // Удаление текущего изображения
+  removeImage(): void {
+    if (!this.currentImageUrl) return;
 
-    // Jeśli usunięto ostatnie zdjęcie, wyślij pusty string do zmiennej pojedynczej
-    if (updatedImages.length === 0) {
-      this.changed.emit('');
-    }
+    // Если нужно удалить с сервера, можно вызвать отдельный метод
+    // this.imageUploadService.deleteImage(this.currentFileName).subscribe(...)
+
+    this.currentImageUrl = null;
+    this.currentFileName = null;
+    this.errorMessage = null;
+    this.imageRemoved.emit();
   }
 }
