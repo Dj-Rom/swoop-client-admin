@@ -1,1 +1,0 @@
-import{$a as n,Ka as a,ab as s,sb as i}from"./chunk-RGT44IXV.js";var o=class t{static \u0275fac=function(e){return new(e||t)};static \u0275cmp=a({type:t,selectors:[["app-analytics"]],decls:2,vars:0,template:function(e,l){e&1&&(n(0,"p"),i(1,"analytics works!"),s())},encapsulation:2})};export{o as Analytics};
