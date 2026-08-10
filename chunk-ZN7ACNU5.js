@@ -1,0 +1,1 @@
+import{Hb as s,Wa as o,ob as a,pb as n}from"./chunk-ITF3HSLM.js";var i=class t{static \u0275fac=function(e){return new(e||t)};static \u0275cmp=o({type:t,selectors:[["app-today"]],decls:2,vars:0,template:function(e,p){e&1&&(a(0,"p"),s(1,"today works!"),n())},encapsulation:2})};export{i as Today};
